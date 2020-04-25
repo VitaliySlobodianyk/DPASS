@@ -23,7 +23,7 @@ namespace TravelCardServer.Controllers
 
             checkedOrder[] orders = JsonSerializer.Deserialize<checkedOrder[]>(value.ToString());
 
-            GoogleSheets.checkOrder(orders);
+            GoogleSheets.checkOrders(orders);
 
             return orders;
         }
