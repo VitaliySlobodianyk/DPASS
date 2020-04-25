@@ -147,7 +147,7 @@ namespace TravelCardServer
                 objectList[Position] = card.quantity;
             }
 
-            objectList.Add("0");//ето че такое??
+            objectList.Add("0");
 
             
 
@@ -218,33 +218,58 @@ namespace TravelCardServer
 
 
 
-        public static void checkOrder(checkedOrder checkedOrder)
+        public static void checkOrders(checkedOrder[] checkedOrders)
         {
             var credential = GetSheetCredentials();
             var service = GetService(credential);
 
-            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, $"{checkedOrder.date}");
-              
+
+            List<string> dates = new List<string>();
+
+            foreach(checkedOrder order in checkedOrders)
+            {
+                if(dates.IndexOf(order.date) == -1)
+                {
+                    dates.Add(order.date);
+                }
+            }
+
             try
             {
-                ValueRange response = request.Execute();
-                checkedOrder.info = response.Values[0][1].ToString();
-                foreach (var value in response.Values)
+                foreach (string date in dates)
                 {
-                    if (checkedOrder.id == value[0].ToString())
+                    SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, date);
+
+                    foreach (checkedOrder checkedOrder in checkedOrders)
                     {
-                        if (value[16].ToString() == "1")
+                        if (checkedOrder.date == date)
                         {
-                            checkedOrder.approved = true;
-                        }
-                        else
-                        {
-                            checkedOrder.approved = false;
+                            ValueRange response = request.Execute();
+                            checkedOrder.info = response.Values[0][1].ToString();
+                            foreach (var value in response.Values)
+                            {
+                                if (checkedOrder.id == value[0].ToString())
+                                {
+                                    if (value[16].ToString() == "1")
+                                    {
+                                        checkedOrder.approved = true;
+                                    }
+                                    else
+                                    {
+                                        checkedOrder.approved = false;
+                                    }
+                                }
+                            }
                         }
                     }
+
                 }
             }
             catch { }
+           
+
+            
+
            
         }
 
