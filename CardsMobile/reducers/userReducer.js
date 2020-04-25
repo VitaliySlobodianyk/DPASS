@@ -1,4 +1,4 @@
-import { CHANGE_NAME, CHANGE_GROUP, CHANGE_PHONE, REFRESH } from '../actions/types.js';
+import { CHANGE_NAME, CHANGE_GROUP, CHANGE_PHONE, REFRESH, PUTBILLID, PUTDATE, PUTAMOUNT, CLEARAPPROVAL} from '../actions/types.js';
 import { iniciateState } from '../services'
 
 
@@ -29,7 +29,34 @@ const userReducer = (state = iniciateState(), action) => {
             return {
                 ...state
             }
-         }
+         } break;
+        
+         case PUTBILLID: {
+            return {
+                ...state,
+                billId: action.billId
+            }
+         } break;
+         case PUTDATE: {
+            return {
+                ...state,
+                date: action.date
+            }
+         } break;
+         case PUTAMOUNT: {
+            return {
+                ...state,
+                actualAmount: action.amount
+            }
+         } break;
+         case CLEARAPPROVAL: {
+            return {
+                ...state,
+                actualAmount: '',
+                date: '',
+                billId: ''
+            }
+         } break;
 
 
         default:

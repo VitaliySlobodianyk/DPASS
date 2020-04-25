@@ -18,8 +18,8 @@ const formatDate= (month,year)=>{
 
  export const getKeyDate = () => {
   const orderDate = new Date();
-  return orderDate.getDate()<= 10 ?  formatDate( orderDate.getMonth() + 2, orderDate.getFullYear()) 
-  :  formatDate( orderDate.getMonth() + 3, orderDate.getFullYear()); 
+  return orderDate.getDate()<= 10 ?  formatDate( orderDate.getMonth() + 1, orderDate.getFullYear()) 
+  :  formatDate( orderDate.getMonth() + 2, orderDate.getFullYear()); 
   }
 
  export const payDate = (keyDate) => {

@@ -1,5 +1,6 @@
 import {ADD_CARD, DELETE_CARD, ADD_HISTORY, DELETE_HISTORY, CHANGE_GROUP, CHANGE_NAME, CHANGE_PHONE,
-PUT_ORDER_IN_HISTORY, CHANGE_TYPE, CHANGE_LIMIT, CHANGE_QUANTITY, CLEAR_CART, CHANGE_CARD, REFRESH, TIE_CHECKED_ORDERS_TO_HISTORY} from './types';
+PUT_ORDER_IN_HISTORY, CHANGE_TYPE, CHANGE_LIMIT, CHANGE_QUANTITY, CLEAR_CART, CHANGE_CARD, REFRESH, TIE_CHECKED_ORDERS_TO_HISTORY, 
+PUTDATE, PUTBILLID, PUTAMOUNT, CLEARAPPROVAL} from './types';
 
 export const addCard= (card)=>({
     type: ADD_CARD,
@@ -68,4 +69,22 @@ export const changeQuantity= (quantity)=>({
 
 export const refresh= ()=> ({
     type: REFRESH
+})
+
+
+export const putDate= (date)=> ({
+    type: PUTDATE,
+    date
+})
+export const putBillId= (billId)=> ({
+    type: PUTBILLID,
+    billId
+})
+export const  putAmount= (amount)=>({
+    type: PUTAMOUNT,
+    amount
+})
+
+export const  clearApprovalData= ()=>({
+    type: CLEARAPPROVAL
 })

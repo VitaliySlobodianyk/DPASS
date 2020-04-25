@@ -1,12 +1,12 @@
 import {
     deleteCard, addCard, addHistory, deleteHistory, changeName, changeGroup, changePhone,
     changeType, changeLimit, changeQuantity, putOrder, clearCart, changeCard, refresh,
-    tieCheckedOrdersToHistory
+    tieCheckedOrdersToHistory, putBillId, putDate, putAmount, clearApprovalData
 } from './actions'
 import {
     DELETE_CARD, ADD_CARD, ADD_HISTORY, DELETE_HISTORY, CHANGE_NAME, CHANGE_GROUP, CHANGE_PHONE,
     CHANGE_LIMIT, CHANGE_TYPE, CHANGE_QUANTITY, PUT_ORDER_IN_HISTORY, CLEAR_CART, CHANGE_CARD, REFRESH,
-    TIE_CHECKED_ORDERS_TO_HISTORY
+    TIE_CHECKED_ORDERS_TO_HISTORY, PUTBILLID, PUTDATE, PUTAMOUNT, CLEARAPPROVAL
 } from './types'
 export {
     deleteCard, DELETE_CARD,
@@ -23,5 +23,9 @@ export {
     changeQuantity, CHANGE_QUANTITY,
     changeCard, CHANGE_CARD,
     refresh, REFRESH,
-    tieCheckedOrdersToHistory, TIE_CHECKED_ORDERS_TO_HISTORY
+    tieCheckedOrdersToHistory, TIE_CHECKED_ORDERS_TO_HISTORY,
+    putBillId, PUTBILLID,
+    putDate, PUTDATE,
+    putAmount, PUTAMOUNT, 
+    clearApprovalData, CLEARAPPROVAL
 }

@@ -51,11 +51,23 @@ namespace TravelCardServer
         {
             var credential = GetSheetCredentials();
             var service = GetService(credential);
+            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, $"{order.date}");
 
-            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, $"Test");
-            ValueRange response = request.Execute();
 
-            foreach(var value in response.Values)
+            ValueRange response;
+
+            try
+            {
+                response = request.Execute();
+            }
+            catch
+            {
+                NewList(order.date);
+                response = request.Execute();
+
+            }
+
+            foreach (var value in response.Values)
             {
                 if(order.id == value[0].ToString())
                 {
@@ -135,42 +147,148 @@ namespace TravelCardServer
                 objectList[Position] = card.quantity;
             }
 
-            objectList.Add("0");
+            objectList.Add("0");//ето че такое??
 
             
 
 
             valueRange.Values = new List<IList<object>> { objectList };
 
-            var appendRequest = service.Spreadsheets.Values.Append(valueRange, SpreadsheetId, $"Test");
+            var appendRequest = service.Spreadsheets.Values.Append(valueRange, SpreadsheetId, $"{order.date}");
             appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
-            var appendResponse = appendRequest.Execute();
+
+
+            try
+            {
+                var appendResponse = appendRequest.Execute();
+            }
+            catch
+            {
+                NewList(order.date);
+                var appendResponse = appendRequest.Execute();
+
+            }
+            
 
 
         }
+
+        static void NewList(string name)
+        {
+            var credential = GetSheetCredentials();
+            var service = GetService(credential);
+
+            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, "Лист7");
+            ValueRange response = request.Execute();
+
+            var myRequest = new Request
+            {
+                AddSheet = new AddSheetRequest
+                {
+                    Properties = new SheetProperties
+                    {
+                        Title = name,
+
+                        GridProperties = new GridProperties
+                        {
+                            ColumnCount = 20
+                        }
+
+                    }
+                }
+            };
+
+            List<Request> requests = new List<Request> { myRequest };
+
+
+            BatchUpdateSpreadsheetRequest batchUpdateSpreadsheet = new BatchUpdateSpreadsheetRequest();
+            batchUpdateSpreadsheet.Requests = requests;
+            service.Spreadsheets.BatchUpdate(batchUpdateSpreadsheet, SpreadsheetId).Execute();
+
+
+            var valueRange = new ValueRange();
+
+            valueRange.Values = response.Values;
+
+
+            var appendRequest = service.Spreadsheets.Values.Append(valueRange, SpreadsheetId, name);
+            appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+            var appendResponse = appendRequest.Execute();
+        }
+
+
 
         public static void checkOrder(checkedOrder checkedOrder)
         {
             var credential = GetSheetCredentials();
             var service = GetService(credential);
 
-            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, $"Test");
-            ValueRange response = request.Execute();
-
-            foreach (var value in response.Values)
+            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, $"{checkedOrder.date}");
+              
+            try
             {
-                if (checkedOrder.id == value[0].ToString())
+                ValueRange response = request.Execute();
+                checkedOrder.info = response.Values[0][1].ToString();
+                foreach (var value in response.Values)
                 {
-                    if(value[16].ToString() == "1")
+                    if (checkedOrder.id == value[0].ToString())
                     {
-                        checkedOrder.approved = true;
-                    }
-                    else
-                    {
-                        checkedOrder.approved = false;
+                        if (value[16].ToString() == "1")
+                        {
+                            checkedOrder.approved = true;
+                        }
+                        else
+                        {
+                            checkedOrder.approved = false;
+                        }
                     }
                 }
-            }         
+            }
+            catch { }
+           
+        }
+
+        public static void approveOrder(ApprovedOrder order)
+        {
+            var credential = GetSheetCredentials();
+            var service = GetService(credential);
+            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, $"{order.orderDate}");
+            ValueRange response = request.Execute();
+
+            var objectList = new List<object>();
+            int position = 0;
+            for (int i = 0; i< response.Values.Count;i++)
+            {
+                if (order.id == response.Values[i][0].ToString())
+                {
+                    objectList.AddRange(response.Values[i]);
+                    position = i;
+                }
+            }
+
+
+
+            if(objectList.Count < 19)
+            {
+                objectList.Add(order.billId);
+                objectList.Add(order.payDate);
+                objectList.Add(order.sum);
+            }
+            else
+            {
+                objectList[17] = order.billId;
+                objectList[18] = order.payDate;
+                objectList[19] = order.sum;
+            }
+            
+            var valueRange = new ValueRange();
+
+            valueRange.Values = new List<IList<Object>> { objectList };
+
+            var updateRequest = service.Spreadsheets.Values.Update(valueRange, SpreadsheetId, $"{order.orderDate}!A{position + 1}");
+            updateRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
+            var updateRespinse = updateRequest.Execute();
+
         }
 
 

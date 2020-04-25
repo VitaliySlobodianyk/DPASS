@@ -58,8 +58,8 @@ const cardReducer = (state = iniciateState(), action) => {
                     
                     uncheckedOrders[foundIndex].approved= checkedOrder.approved
                    
-                    if(checkedOrder.info){
-                        uncheckedOrder.info= checkedOrder.info;
+                    if(checkedOrder?.info && checkedOrder.info.trim().length>0){
+                        uncheckedOrders[foundIndex].info= checkedOrder.info;
                     }
                 }
 
