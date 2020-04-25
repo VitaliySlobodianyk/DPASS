@@ -17,7 +17,8 @@ const Approval = (props) => {
    const {billId,date,actualAmount} = props.user;
 
   const checkApprovalData= ()=> billId.trim().length>0 && date.trim().length>0 && actualAmount.trim().length>0;  
-   const makeApproval= async ()=>{
+   
+  const makeApproval= async ()=>{
 
     if(checkApprovalData()){
          

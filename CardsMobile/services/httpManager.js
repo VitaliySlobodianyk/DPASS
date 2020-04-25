@@ -1,4 +1,4 @@
-const URL = 'http://192.168.1.3:8000';
+const URL = 'http://192.168.0.103:8000';
 
 export const sendData = async (order) => {
   let succes = true;
@@ -72,30 +72,3 @@ export const checkOrders = async (ordersArray) => {
 
 
 
-  // export const checkOrders = async (ordersArray) => {
-  //   let data =null;
-
-  //    await fetch(`${URL}/checkOrder`, {
-  //        method: 'POST',
-  //        headers: {
-  //          Accept: 'application/json',
-  //          'Content-Type': 'application/json',
-  //        },
-  //        body: JSON.stringify(ordersArray)
-  //      }).then( async (response) =>{
-  //        if(response.status===200){
-  //        console.log("DATA FROM CHECK");
-  //          console.log(response);
-  //       //data= JSON.parse(response.json());
-
-  //       await response.json().then(json =>{
-  //               console.log(json);
-  //               data= JSON.parse(json);
-  //          })
-  //        } 
-
-  //      }).catch(err=>{ console.log(err) 
-  //        console.log(err);
-  //      });
-  //      return data;
-  //    }

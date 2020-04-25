@@ -168,7 +168,8 @@ const MainPage = ( props) => {
             name: props.user.name,
             group: props.user.group,
             phone: props.user.phone,
-            cards: props.cards.cards
+            cards: props.cards.cards,  
+            history: props.cards.history
         });
 
 
