@@ -239,12 +239,12 @@ namespace TravelCardServer
                 foreach (string date in dates)
                 {
                     SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, date);
-
+                    ValueRange response = request.Execute();
                     foreach (checkedOrder checkedOrder in checkedOrders)
                     {
                         if (checkedOrder.date == date)
                         {
-                            ValueRange response = request.Execute();
+                            
                             checkedOrder.info = response.Values[0][1].ToString();
                             foreach (var value in response.Values)
                             {
@@ -316,7 +316,70 @@ namespace TravelCardServer
 
         }
 
+        public static price GetPrice()
+        {
+            var credential = GetSheetCredentials();
+            var service = GetService(credential);
 
+            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, "price");
+
+            price price = new price();
+
+            ValueRange response = request.Execute();
+
+            price.metro = new costCard
+            {
+                limit46 = int.Parse(response.Values[1][1].ToString()),
+                limit62 = int.Parse(response.Values[1][2].ToString()),
+                unlim = int.Parse(response.Values[1][3].ToString())
+            };
+
+            price.metroTram = new costCard
+            {
+                limit46 = int.Parse(response.Values[2][1].ToString()),
+                limit62 = int.Parse(response.Values[2][2].ToString()),
+                unlim = int.Parse(response.Values[2][3].ToString())
+            };
+
+            price.metroBus = new costCard
+            {
+                limit46 = int.Parse(response.Values[3][1].ToString()),
+                limit62 = int.Parse(response.Values[3][2].ToString()),
+                unlim = int.Parse(response.Values[3][3].ToString())
+            };
+
+            price.metroTroley = new costCard
+            {
+                limit46 = int.Parse(response.Values[4][1].ToString()),
+                limit62 = int.Parse(response.Values[4][2].ToString()),
+                unlim = int.Parse(response.Values[4][3].ToString())
+            };
+
+
+            return price;
+        }
+
+
+        public static Info GetInfo()
+        {
+            var credential = GetSheetCredentials();
+            var service = GetService(credential);
+
+            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, "info");
+
+            Info info = new Info();
+
+            ValueRange response = request.Execute();
+
+            info.name = response.Values[0][1].ToString();
+            info.phone = response.Values[1][1].ToString();
+            info.telegram = response.Values[2][1].ToString();
+
+
+            return info;
+
+
+        }
 
     }
 }
