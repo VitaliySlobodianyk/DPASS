@@ -26,7 +26,6 @@ namespace TravelCardServer.Controllers
             for (int i = 0; i < orders.Length; i++)
             {
                 GoogleSheets.checkOrder(orders[i]);
-                orders[i].info = "";
             }
 
             return orders;

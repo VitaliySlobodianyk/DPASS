@@ -11,8 +11,26 @@ export const sendData = async (order) => {
     },
     body: JSON.stringify(order)
   }).then(response => {
-    console.log("RESPONCE");
-    console.log(response);
+    if (response.status != 200) {
+      succes = false;
+    }
+  }).catch(err => {
+    console.log(err)
+    succes = false;
+  });
+  return succes;
+}
+
+export const sendApproval = async (approval) => {
+  let succes = true;
+  await fetch(`${URL}/approveOrder`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(approval)
+  }).then(response =>{
     if (response.status != 200) {
       succes = false;
     }

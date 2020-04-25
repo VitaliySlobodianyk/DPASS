@@ -17,5 +17,6 @@ namespace TravelCardServer.Models
 
         public bool approved { get; set; }
 
+
     }
 }

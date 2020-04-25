@@ -9,40 +9,64 @@ import {
 import Card from './Card';
 import { uuid } from 'uuidv4';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import {pages,payDate} from '../services'
+import { pages, payDate, calculatePriceOfPurchase, checkAbilityToPay,orderStatus} from '../services'
 
 import { addHistory } from '../actions';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 
-const HistoryCell = ({ orderId, date, cards, approved, navigation, addHistory }) => {
+const HistoryCell = ({ order, navigation, addHistory }) => {
+
+  const { date, cards, approved } = order;
+  const renderInfo =() =>{
+    if(order?.info){
+          return (
+          <View>
+          <Text>Info:</Text>
+          <Text>{order.info}</Text>
+          </View>
+            );
+        }else{
+          return null;
+        }
+
+  }
   
   const renderApproval = () => {
-       
-    return approved ? <Text style={{
-      fontSize: 20,
-      color: 'green',
-    }}>Approved</Text> :
-  
-      <TouchableHighlight onPress={() => {
-       // addHistory(pages.approval);
-       console.log(orderId);
-       addHistory(pages.approval);
-       navigation.navigate(pages.approval, { orderId: orderId})
-      }}>
-  
-        <Text style={{
-          fontSize: 20,
-          color: 'red',
-        }}>Click to approve</Text>
-      </TouchableHighlight>
-  
+    if (approved) {
+
+      return (<Text style={{
+        fontSize: 20,
+        color: 'green',
+      }}>Approved</Text>);
+
+    } else {
+      const abilityToPay= checkAbilityToPay(date);
+        
+      if(abilityToPay === orderStatus.thisMonth || abilityToPay === orderStatus.nextMonth){
+        return ( <TouchableHighlight onPress={() => {
+          addHistory(pages.approval);
+          navigation.navigate(pages.approval, { order: order })
+        }}>
+    
+          <Text style={{
+            fontSize: 20,
+            color: 'red',
+          }}>Click to approve</Text>
+        </TouchableHighlight>);
+      }else{
+        return ( 
+          <Text>Order Outdated, you can't approve it!</Text>
+        );
+      } 
+    }
   }
 
   return (
     <View style={styles.card}>
       <Text style={styles.text}>Date of order: {date}</Text>
-  <Text style={styles.text}>Date to pay: {payDate(date)}</Text>
+      <Text style={styles.text}>Date to pay: {payDate(date)}</Text>
+      {renderInfo()}
       <FlatList
         data={cards}
         scrollEnabled={false}
@@ -53,13 +77,13 @@ const HistoryCell = ({ orderId, date, cards, approved, navigation, addHistory })
           limit={item.limit}
           quantity={item.quantity}
           price={item.price}
-          displayDelete = {false}
+          displayDelete={false}
         />
         }
         contentContainerStyle={{ flexGrow: 1 }}
       >
-
       </FlatList>
+      <Text >Order price: {calculatePriceOfPurchase(cards)} UAN</Text>
       {renderApproval()}
     </View>
   );
@@ -81,26 +105,26 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
-const mapStateToProps= (state)=>{
+const mapStateToProps = (state) => {
   return {
-   history: state.history
+    history: state.history
   }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addCard: (card) => dispatch(addCard(card)),
+    deleteCard: (id) => dispatch(deleteCard(id)),
+    changeCard: (index, card) => dispatch(changeCard(index, card)),
+    changeType: (type) => dispatch(changeType(type)),
+    changeLimit: (limit) => dispatch(changeLimit(limit)),
+    changeQuantity: (quantity) => dispatch(changeQuantity(quantity)),
+    changeName: (name) => dispatch(changeName(name)),
+    changeGroup: (group) => dispatch(changeGroup(group)),
+    changePhone: (phone) => dispatch(changePhone(phone)),
+    goBack: () => dispatch(deleteHistory()),
+    addHistory: (pageName) => dispatch(addHistory(pageName))
   }
-  const mapDispatchToProps= (dispatch) =>{
-    return {
-        addCard: (card)=> dispatch(addCard(card)),
-        deleteCard: (id) => dispatch(deleteCard(id)),
-        changeCard: (index, card)=> dispatch(changeCard(index,card)),
-        changeType: (type)=> dispatch(changeType(type)),
-        changeLimit: (limit)=> dispatch(changeLimit(limit)),
-        changeQuantity: (quantity) => dispatch(changeQuantity(quantity)),
-        changeName: (name)=> dispatch(changeName(name)),
-        changeGroup: (group) => dispatch(changeGroup(group)),
-        changePhone: (phone)=> dispatch(changePhone(phone)),
-        goBack: ()=> dispatch(deleteHistory()),
-        addHistory: (pageName) => dispatch(addHistory(pageName))
-    }
-  }
+}
 
 
-export default connect(mapStateToProps,mapDispatchToProps) (HistoryCell);
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryCell);

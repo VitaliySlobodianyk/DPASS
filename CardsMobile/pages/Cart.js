@@ -9,29 +9,13 @@ import {
 
 import Card from '../components/Card';
 import { uuid } from 'uuidv4';
-import { sendData, readData, writeData, getKeyDate } from '../services'
+import { sendData, readData, writeData, getKeyDate, calculatePriceOfPurchase } from '../services'
 import { connect } from 'react-redux';
 import { deleteCard, putOrder, clearCart } from '../actions'
 
 
 const CartPage = (props) => {
    
-
-
-    const calculatePriceOfPurchase = () => {
-        const cartList = [...props.cards.cards];
-        console.log(cartList);
-        if (cartList.length > 0) {
-            let acc = 0;
-            cartList.forEach((card) => {
-                acc += (card.quantity * card.price);
-            })
-            return acc;
-        }
-        else {
-            return 0;
-        }
-    }
     const validateCreds = () => (props.user.name.trim().length != 0
         && props.user.name.trim().length != 0
         && props.user.phone.trim().length != 0)
@@ -128,7 +112,7 @@ const CartPage = (props) => {
             </View>
             <TouchableOpacity style={styles.buttonPrimary} onPress={getCards}>
                 <Text style={styles.buttonTextStyle} >Order your cards</Text>
-                <Text> {calculatePriceOfPurchase()} UAN</Text>
+                <Text> {calculatePriceOfPurchase(props.cards.cards)} UAN</Text>
             </TouchableOpacity>
         </View>
     );

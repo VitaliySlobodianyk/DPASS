@@ -29,12 +29,12 @@ const HistoryPage = (props) => {
 
   const refreshStatuses= async() => {
     let result = null;
+    updated= true;
     try {
       result= await checkOrders(ordersToCheck) ; 
-      console.log("DATA FROM CHECK");
-      console.log(result);
-      updated= true;
+     if(result!=null){
       props.tieCheckedOrdersToHistory(result); 
+     }   
     } catch (error) {
       console.log(error);
       updated= false;
@@ -44,21 +44,19 @@ const HistoryPage = (props) => {
 if(!updated){
   refreshStatuses();
 }
-  
 
-  
   if(history.length>0){
     return (
       <View style={
           {
-            height: "60%"
+            height: "100%"
           }
         }>
           <FlatList
             data={history}
             renderItem={({ item }) => {
           //console.log(item);
-          return(<HistoryCell key={uuid()}  navigation= {props.navigation} orderId={item.id} date={item.date} cards={item.cards} approved={item.approved} />)}}
+          return(<HistoryCell key={uuid()}  navigation= {props.navigation} order={item}/>)}}
             contentContainerStyle={{ flexGrow: 1 }} >
           </FlatList>
         </View>

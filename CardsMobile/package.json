@@ -8,7 +8,7 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "build-android": "cd android  gradlew assembleRelease"
+    "build-android": "  cd android && gradlew assembleRelease"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.8.1",
@@ -19,6 +19,7 @@
     "js-sha1": "^0.6.0",
     "react": "16.9.0",
     "react-native": "0.61.5",
+    "react-native-datepicker": "^1.7.2",
     "react-native-gesture-handler": "^1.6.0",
     "react-native-image-picker": "^2.3.1",
     "react-native-reanimated": "^1.7.0",

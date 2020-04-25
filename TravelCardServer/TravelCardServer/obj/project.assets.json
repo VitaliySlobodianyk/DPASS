@@ -6224,11 +6224,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Vitalii Slobodianyk\\Desktop\\TravelCardServer\\TravelCardServer\\TravelCardServer.csproj",
+      "projectUniqueName": "D:\\WEB\\CardsMobile\\TravelCardServer\\TravelCardServer\\TravelCardServer.csproj",
       "projectName": "TravelCardServer",
-      "projectPath": "C:\\Users\\Vitalii Slobodianyk\\Desktop\\TravelCardServer\\TravelCardServer\\TravelCardServer.csproj",
+      "projectPath": "D:\\WEB\\CardsMobile\\TravelCardServer\\TravelCardServer\\TravelCardServer.csproj",
       "packagesPath": "C:\\Users\\Vitalii Slobodianyk\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Vitalii Slobodianyk\\Desktop\\TravelCardServer\\TravelCardServer\\obj\\",
+      "outputPath": "D:\\WEB\\CardsMobile\\TravelCardServer\\TravelCardServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Microsoft\\Xamarin\\NuGet\\"

@@ -12,7 +12,9 @@ import {pages} from './pagesStore'
   type: 'metro',
   limit: '46',
   quantity: 1,
-  photo: null
+  billId: '',
+  date: '',
+  actualAmount: ''
 };
 
  const iniciateState = () => {
