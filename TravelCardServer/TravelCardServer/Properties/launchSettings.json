@@ -3,11 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-<<<<<<< HEAD
       "applicationUrl": "http://192.168.0.103:8000",
-=======
-      "applicationUrl": "http://localhost:8000",
->>>>>>> backend
       "sslPort": 0
     },
     "iisExpress": {
@@ -32,7 +28,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://192.168.0.103:5000"
+      "applicationUrl": "http://192.168.0.103:8000"
     }
   }
 }

@@ -72,3 +72,64 @@ export const checkOrders = async (ordersArray) => {
 
 
 
+export const getPrices = async () => {
+  let data = null;
+
+  await fetch(`${URL}/price`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  }).then(async (response) => {
+    if (response.status === 200) {
+      console.log("PRICES");
+      console.log(response);
+    await response.json().then(json=>{
+      console.log(json);
+      data=  JSON.parse(JSON.stringify(json));
+      }).catch(err=>{
+        console.log(err);
+      });
+    }
+  }).catch(err => {
+      console.log(err)
+      console.log(err);
+    });
+  return data;
+}
+
+
+
+export const getInfo = async (ordersArray) => {
+  let data = null;
+
+  await fetch(`${URL}/info`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(ordersArray)
+  }).then(async (response) => {
+    if (response.status === 200) {
+      console.log("DATA FROM CHECK");
+      console.log(response);
+    await response.json().then(json=>{
+      console.log(json);
+      data=  JSON.parse(JSON.stringify(json));
+      }).catch(err=>{
+        console.log(err);
+      });
+      
+    }
+  }).catch(err => {
+      console.log(err)
+      console.log(err);
+    });
+  return data;
+}
+
+
+
+

@@ -62,14 +62,17 @@ const CartPage = props => {
           group: props.user.group,
           phone: props.user.phone,
           cards: props.cards.cards,
-          approved: false,
+          approved: false
         };
 
      if( checkOrderAwailability(order)){
-        const succes = await sendData(order);
+      console.log(order);//  
+      const succes = await sendData(order);
 
         if (succes) {
+          order.approvalSent = false;
           props.putOrder(order);
+
           alert('Operation succesful');
           props.clearCart();
         } else {

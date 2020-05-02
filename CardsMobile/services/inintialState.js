@@ -17,8 +17,8 @@ import {pages} from './pagesStore'
   actualAmount: ''
 };
 
- const iniciateState = () => {
-  readData().then(data => {
+ const iniciateState =  () => {
+   readData().then(data => {
     if (data?.name) {
       initialState.name = data.name;
     }

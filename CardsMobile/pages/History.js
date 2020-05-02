@@ -32,6 +32,8 @@ const HistoryPage = props => {
     refreshing: false,
     lastRefreshed: new Date().getTime() - 1000 * 60 * 5,
   });
+
+
   const ordersToCheck = history
     .filter(
       order =>
@@ -43,7 +45,7 @@ const HistoryPage = props => {
     if (new Date().getTime() - refreshing.lastRefreshed > 1000 * 60 * 5) {
       console.log('Sended update');
       refreshStatuses();
-    }else{
+    } else {
       console.log('Brutforced update');
     }
   };

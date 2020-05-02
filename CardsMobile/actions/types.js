@@ -31,4 +31,6 @@ export const REFRESH= 'REFRESH';
 export const PUTDATE= 'PUTDATE';
 export const PUTBILLID= 'PUTORDERID';
 export const PUTAMOUNT = 'PUTAMOUNT';
+
 export const CLEARAPPROVAL = 'CLEARAPPROVAL';
+export const APPROVALSENT = 'APPROVALSENT';

@@ -5,7 +5,6 @@ import { prices, getKeyDate } from '../services'
 
 
 const cardConfigReducer =  (state = iniciateState(), action) => {
-    console.log(state);
     switch (action.type) {
         case CHANGE_TYPE:
             return {
@@ -21,7 +20,6 @@ const cardConfigReducer =  (state = iniciateState(), action) => {
             break;
         case CHANGE_QUANTITY:
            { 
-            console.log(state);   
             return {
                 ...state,
                 quantity: action.quantity

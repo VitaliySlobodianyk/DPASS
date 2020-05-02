@@ -5,13 +5,12 @@ import {
   ScrollView,
   View,
   Text,
-  Button,
   TouchableHighlight,
   TextInput,
   TouchableOpacity
 } from 'react-native';
 import { uuid } from 'uuidv4';
-import { prices, cardNames, getKeyDate } from '../services'
+import { prices, tiePrices, cardNames, getKeyDate, getPrices } from '../services'
 import { CardType, CardLimit } from '../components'
 import Icon from 'react-native-vector-icons/Entypo'
 import {writeData} from '../services'
@@ -22,12 +21,23 @@ import {addCard, deleteCard, changeCard, changeType,
 import {connect} from 'react-redux';
 
 let refreshed= false;
-
+let pricesGot= false; 
 const MainPage = ( props) => {
   const findCardIndex= (type,limit)=>{
          return props.cards.cards.findIndex( card => card.type===type && card.limit === limit);
   }
- 
+  const initiatePrices = async()=>{
+    const tied = await tiePrices();
+    if(tied){
+      pricesGot=true;
+      props.refresh();
+    }
+  }
+  
+  // if(!pricesGot){
+  //   initiatePrices();
+  // }
+
   if(!refreshed){
   setTimeout( props.refresh, 1000);
   refreshed=true;
@@ -147,8 +157,7 @@ const MainPage = ( props) => {
           marginTop: "5%"
         }} onPress={() => {
         
-        let existingCardIndex=  findCardIndex(props.cardConfig.type, props.cardConfig.limit);
-         
+        let existingCardIndex=  findCardIndex(props.cardConfig.type, props.cardConfig.limit);        
           if(existingCardIndex!=-1){
              props.changeCard(existingCardIndex, {
               quantity: props.cardConfig.quantity
@@ -160,9 +169,8 @@ const MainPage = ( props) => {
             limit: props.cardConfig.limit,
             quantity: props.cardConfig.quantity
           })
-         }
+         } 
 
-         
         writeData({
             id: props.user.id,
             name: props.user.name,
