@@ -116,7 +116,7 @@ namespace TravelCardServer
                             Position += 6;
                             break;
                         }
-                    case "metroTroleybus":
+                    case "metroTroley":
                         {
                             Position += 9;
                             break;
@@ -209,6 +209,18 @@ namespace TravelCardServer
             var valueRange = new ValueRange();
 
             valueRange.Values = response.Values;
+
+            char c = 'A';
+            for (int i = 4; i < 15; i++)
+            {
+
+                valueRange.Values[1][i] = $"= СУММЕСЛИМН({(char)(c + i)}5: {(char)(c + i)};$Q5:$Q; 1)";
+                valueRange.Values[2][i] = $"=СУММ({(char)(c + i)}5:{(char)(c + i)})";
+            }
+
+            valueRange.Values[1][17] = "=СУММ (E2*price!B2;F2*price!C2;G2*price!D2;H2*price!B3;I2*price!C3;J2*price!D3;K2*price!B4;L2*price!C4;M2*price!D4;N2*price!B5;O2*price!C5;P2*price!D5)";
+            valueRange.Values[2][17] = "=СУММ (E3*price!B2;F2*price!C3;G2*price!D2;H3*price!B3;I3*price!C3;J3*price!D3;K3*price!B4;L3*price!C4;M3*price!D4;N3*price!B5;O3*price!C5;P3*price!D5)";
+
 
 
             var appendRequest = service.Spreadsheets.Values.Append(valueRange, SpreadsheetId, name);
@@ -380,6 +392,9 @@ namespace TravelCardServer
 
 
         }
+
+
+
 
     }
 }
