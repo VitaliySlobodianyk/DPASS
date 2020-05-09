@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import {
     StyleSheet,
@@ -8,19 +7,27 @@ import {
     Button,
 } from 'react-native';
 
-const Info = () => {
+let infoUploaded= false;
 
-   // const [state, setstate] = useState({ infoShown: true });
-    // const renderRow = (data) => {
-    //     return (
-    //         <Text>{`\u2022 ${data}`}</Text>
-    //     );
-    // }
-    //   <ListView
-    //   style={{margin: 40}}
-    //   dataSource={dataSource}
-    //   renderRow={this.renderRow}
-    // />
+import {getInfo} from '../services'
+
+const Info = () => {
+  
+  const syncInfo= async() => {
+   
+        const info = await getInfo();
+        console.log(info);
+       if(info){
+        infoUploaded=true;
+       }      
+  }
+
+   if(!infoUploaded){
+       syncInfo();
+   }
+
+
+
 
 
     return (
@@ -40,9 +47,6 @@ const Info = () => {
             </ScrollView>
         </View>
     );
-
-
-
 };
 
 const styles = StyleSheet.create({
@@ -51,4 +55,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Info;
+export default  Info;

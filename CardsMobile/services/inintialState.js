@@ -1,7 +1,10 @@
 import { uuid } from 'uuidv4';
-import { readData } from './asyncStorageManager'
+import { readData, readDataKey, keys } from './asyncStorageManager'
 import {pages} from './pagesStore'
- const initialState = {
+ 
+
+
+const initialState = {
   id: uuid(),
   name: '',
   group: '',
@@ -17,8 +20,32 @@ import {pages} from './pagesStore'
   actualAmount: ''
 };
 
+const pageHistorySta= {
+
+}
+
+const userDataState ={
+
+}
+
+const cardsState = {
+
+
+}
+
+const pricesState = {
+  lastUpdate:'',
+  prices: {}
+}
+
+const infoState ={
+  lastUpdate:'',
+  info: {}
+}
+
+
  const iniciateState =  () => {
-   readData().then(data => {
+  readData().then(data => {
     if (data?.name) {
       initialState.name = data.name;
     }
@@ -37,6 +64,19 @@ import {pages} from './pagesStore'
   }).catch(err => console.log(err));
  
   return  initialState;
+}
+
+export const iniciateInfoState = async() => {
+  const info = await readDataKey(keys.info);
+
+   if(info?.lastUpdate){
+     infoState.lastUpdate = info.lastUpdate;
+   }
+   if(info?.info){
+    infoState.info = info.info;
+  }
+
+ return infoState;
 }
  
 
