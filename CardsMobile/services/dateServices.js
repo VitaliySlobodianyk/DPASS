@@ -59,6 +59,6 @@ export const getCurrentMonthShortened = () => {
   return formatDate(orderDate.getMonth() + 1, orderDate.getFullYear());
 }
 
-export const needInfoUpdate = (oldDate) => {
+export const needUpdate = (oldDate) => {
 return oldDate != getCurrentMonthShortened();
 }

@@ -6,6 +6,7 @@ import {
   CHANGE_GROUP,
   CHANGE_NAME,
   CHANGE_PHONE,
+  TIE_USER_INFO,
   PUT_ORDER_IN_HISTORY,
   CHANGE_TYPE,
   CHANGE_LIMIT,
@@ -18,7 +19,15 @@ import {
   PUTBILLID,
   PUTAMOUNT,
   CLEARAPPROVAL,
-  APPROVALSENT
+  APPROVALSENT,
+  UPDATE_PRICES_DATE,
+  TIE_PRICES,
+  UPLOAD_PRICES,
+  UPLOAD_CARDS,
+  TIE_INFO,
+  UPDATE_INFO_DATE,
+  UPLOAD_INFO
+
 } from './types';
 
 export const addCard = card => ({
@@ -46,6 +55,7 @@ export const tieCheckedOrdersToHistory = checkedOrders => ({
   checkedOrders,
 });
 
+
 export const clearCart = () => ({
   type: CLEAR_CART,
 });
@@ -57,6 +67,12 @@ export const addHistory = pageName => ({
 export const deleteHistory = () => ({
   type: DELETE_HISTORY,
 });
+
+export const uploadCards =(cards) =>({
+  type: UPLOAD_CARDS,
+  cards
+})
+
 
 export const changeName = name => ({
   type: CHANGE_NAME,
@@ -70,6 +86,11 @@ export const changePhone = phone => ({
   type: CHANGE_PHONE,
   phone,
 });
+export const tieUserInfo = (info) =>({
+ type: TIE_USER_INFO,
+ info 
+})
+
 
 export const changeType = type => ({
   type: CHANGE_TYPE,
@@ -109,3 +130,38 @@ export const approvalSent = (orderId)=> ({
     type: APPROVALSENT,
     orderId
 });
+
+
+
+
+
+export const updateDATE= (date) =>({
+  type: UPDATE_PRICES_DATE,
+  date
+})
+
+export const tiePrices = (prices) =>({
+  type: TIE_PRICES,
+  prices
+})
+
+export const uploadPrices = (prices) =>({
+  type: UPLOAD_PRICES,
+  prices
+})
+
+export const tieInfo = (info) =>({
+  type: TIE_INFO,
+  info
+})
+
+export const uploadInfo = (info)=>({
+ type: UPLOAD_INFO,
+ info
+})
+
+export const updateInfoDate = (date) =>({
+  type: UPDATE_INFO_DATE,
+  date
+})
+

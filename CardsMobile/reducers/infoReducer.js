@@ -1,68 +1,35 @@
-import { CHANGE_NAME, CHANGE_GROUP, CHANGE_PHONE, REFRESH, PUTBILLID, PUTDATE, PUTAMOUNT, CLEARAPPROVAL} from '../actions/types.js';
-import { iniciateInfoState } from '../services'
+import {TIE_INFO, UPLOAD_INFO, UPDATE_INFO_DATE} from '../actions/types.js';
+import {infoState, getCurrentMonthShortened, writeData, keys} from '../services';
 
+const infoReducer = (state = infoState, action) => {
+  switch (action.type) {
+    case TIE_INFO:
+      {
+        const newState = {...state};
+        if (action?.info?.info) {
+          newState.info = action.info.info;
+        }
+        if (action?.info?.lastUpdate) {
+          newState.lastUpdate = action.info.lastUpdate;
+        }
+        return newState;
+      }
+      break;
+    case UPLOAD_INFO: {
+      const uploadedInfo = action.info;
+      const newState = {
+        ...state,
+        info: uploadedInfo,
+        lastUpdate: getCurrentMonthShortened(),
+      };
+      writeData(newState, keys.info);
+      return newState;
+    } break;
 
+    default:
+      break;
+  }
 
-const infoReducer = (state = iniciateInfoState(), action) => {
-    switch (action.type) {
-        case CHANGE_NAME:
-            return {
-                ...state,
-                name: action.name
-            };
-            break;
-        case CHANGE_GROUP:
-            return {
-                ...state,
-                group: action.group
-            }
-            break;
-        case CHANGE_PHONE:
-           {  
-            return {
-                ...state,
-                phone: action.phone
-            }
-         }
-            break;
-         case REFRESH: {
-            return {
-                ...state
-            }
-         } break;
-        
-         case PUTBILLID: {
-            return {
-                ...state,
-                billId: action.billId
-            }
-         } break;
-         case PUTDATE: {
-            return {
-                ...state,
-                date: action.date
-            }
-         } break;
-         case PUTAMOUNT: {
-            return {
-                ...state,
-                actualAmount: action.amount
-            }
-         } break;
-         case CLEARAPPROVAL: {
-            return {
-                ...state,
-                actualAmount: '',
-                date: '',
-                billId: ''
-            }
-         } break;
-
-
-        default:
-            break;
-    }
-
-    return state;
-} 
-export default userReducer;
+  return state;
+};
+export default infoReducer;

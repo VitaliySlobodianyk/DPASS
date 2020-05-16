@@ -1,85 +1,71 @@
-import { uuid } from 'uuidv4';
-import { readData, readDataKey, keys } from './asyncStorageManager'
-import {pages} from './pagesStore'
- 
+import {uuid} from 'uuidv4';
+import {readData, readDataKey, keys} from './asyncStorageManager';
+import {pages} from './pagesStore';
 
+const pageHistoryState = {
+  pageHistory: [pages.main],
+};
 
-const initialState = {
-  id: uuid(),
+const userDataState = {
   name: '',
   group: '',
   phone: '',
-  cards: [],
-  pageHistory: [pages.main],
-  history: [],
+};
+
+const cardsConfigState = {
   type: 'metro',
   limit: '46',
   quantity: 1,
-  billId: '',
-  date: '',
-  actualAmount: ''
 };
 
-const pageHistorySta= {
-
-}
-
-const userDataState ={
-
-}
-
 const cardsState = {
+  cards: [],
+  history: [],
+};
 
-
-}
+const approvalState = {
+  billId: '',
+  date: '',
+  actualAmount: '',
+};
 
 const pricesState = {
-  lastUpdate:'',
-  prices: {}
-}
+  lastUpdate: '',
+  prices: {
+    metro: {
+      46: 160,
+      62: 210,
+      unlim: 320,
+    },
+    metroTram: {
+      46: 300,
+      62: 350,
+      unlim: 445,
+    },
+    metroBus: {
+      46: 300,
+      62: 350,
+      unlim: 445,
+    },
+    metroTroley: {
+      46: 300,
+      62: 350,
+      unlim: 445,
+    },
+  },
+};
 
-const infoState ={
-  lastUpdate:'',
-  info: {}
-}
+const infoState = {
+  lastUpdate: '',
+  info: {},
+};
 
-
- const iniciateState =  () => {
-  readData().then(data => {
-    if (data?.name) {
-      initialState.name = data.name;
-    }
-    if (data?.id) {
-      initialState.id = data.id;
-    }
-    if (data?.group) {
-      initialState.group = data.group;
-    }
-    if (data?.history) {
-      initialState.history = data.history;
-    }
-    if (data?.phone) {
-      initialState.phone = data.phone;
-    }
-  }).catch(err => console.log(err));
- 
-  return  initialState;
-}
-
-export const iniciateInfoState = async() => {
-  const info = await readDataKey(keys.info);
-
-   if(info?.lastUpdate){
-     infoState.lastUpdate = info.lastUpdate;
-   }
-   if(info?.info){
-    infoState.info = info.info;
-  }
-
- return infoState;
-}
- 
-
-
-
-export { iniciateState };
+export {
+  userDataState,
+  cardsConfigState,
+  cardsState,
+  approvalState,
+  pricesState, 
+  infoState,
+  pageHistoryState
+};

@@ -15,6 +15,7 @@ import {
   changeGroup,
   changePhone,
   tieCheckedOrdersToHistory,
+  uploadCards,
 } from '../actions';
 import {connect} from 'react-redux';
 import {
@@ -23,8 +24,10 @@ import {
   checkOrders,
   writeData,
   readData,
+  keys
 } from '../services';
 
+let  cardsUploaded = false;
 const HistoryPage = props => {
   const history = props.cards.history;
   const datesToCheck = checkDate();
@@ -32,6 +35,23 @@ const HistoryPage = props => {
     refreshing: false,
     lastRefreshed: new Date().getTime() - 1000 * 60 * 5,
   });
+
+
+  const loadHistory = async () => {
+    if(props.cards.history.length === 0){
+      const cards = await readData(keys.cards);
+      if (cards) {
+        props.uploadCards(cards);
+        cardsUploaded = true;
+      }
+    }else{
+      cardsUploaded = true;
+    }
+    
+  };
+  if (!cardsUploaded) {
+    loadHistory();
+  }
 
 
   const ordersToCheck = history
@@ -59,14 +79,6 @@ const HistoryPage = props => {
       result = await checkOrders(ordersToCheck);
       if (result != null) {
         await props.tieCheckedOrdersToHistory(result);
-        await writeData({
-          id: props.user.id,
-          name: props.user.name,
-          group: props.user.group,
-          phone: props.user.phone,
-          cards: props.cards.cards,
-          history: props.cards.history,
-        });
       } else {
         alert(`Something wrong with network connection or serever!\n
        Try later...`);
@@ -130,7 +142,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     cards: state.cards,
-    // cardConfig: state.cardConfig,
     user: state.user,
     history: state.history,
   };
@@ -151,6 +162,7 @@ const mapDispatchToProps = dispatch => {
     refresh: () => dispatch(refresh()),
     tieCheckedOrdersToHistory: checkedOrders =>
       dispatch(tieCheckedOrdersToHistory(checkedOrders)),
+     uploadCards: (cards)=> dispatch(uploadCards(cards)) 
   };
 };
 

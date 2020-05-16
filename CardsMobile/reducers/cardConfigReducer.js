@@ -1,10 +1,10 @@
 import { CHANGE_TYPE, CHANGE_LIMIT, CHANGE_QUANTITY } from '../actions/types.js';
-import { iniciateState } from '../services'
+import { cardsConfigState  } from '../services'
 import { prices, getKeyDate } from '../services'
 
 
 
-const cardConfigReducer =  (state = iniciateState(), action) => {
+const cardConfigReducer =  (state = cardsConfigState, action) => {
     switch (action.type) {
         case CHANGE_TYPE:
             return {

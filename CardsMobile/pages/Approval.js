@@ -24,7 +24,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 const Approval = props => {
   const [sending, send] = useState(false);
   const {order} = props.route.params;
-  const {billId, date, actualAmount} = props.user;
+  const {billId, date, actualAmount} = props.approval;
 
   const checkApprovalData = () =>
     billId.trim().length > 0 &&
@@ -63,13 +63,6 @@ const Approval = props => {
       if (result) {
         alert('Approval sent successfully!');
         await props.approvalSent(order.id);
-        await writeData({
-          id: props.user.id,
-          name: props.user.name,
-          group: props.user.group,
-          phone: props.user.phone,
-          history: props.cards.history,
-        });
 
         setTimeout(() => {
           props.clearApprovalData();
@@ -100,7 +93,7 @@ const Approval = props => {
         </View>
 
         <TextInput
-          value={String(props.user.billId)}
+          value={String(props.approval.billId)}
           style={styles.inputField}
           placeholder="Enter ID of bill"
           onChangeText={id => {
@@ -109,7 +102,7 @@ const Approval = props => {
         />
 
         <TextInput
-          value={String(props.user.date)}
+          value={String(props.approval.date)}
           style={styles.inputField}
           placeholder="Enter date of payment"
           onChangeText={date => {
@@ -117,7 +110,7 @@ const Approval = props => {
           }}
         />
         <TextInput
-          value={String(props.user.actualAmount)}
+          value={String(props.approval.actualAmount)}
           style={styles.inputField}
           placeholder="Enter actual amount of payment"
           onChangeText={amount => {
@@ -140,7 +133,7 @@ const mapStateToProps = state => {
   return {
     cards: state.cards,
     history: state.history,
-    user: state.user,
+    approval: state.approval
   };
 };
 const mapDispatchToProps = dispatch => {

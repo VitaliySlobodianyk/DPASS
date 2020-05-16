@@ -83,17 +83,13 @@ export const getPrices = async () => {
     },
   }).then(async (response) => {
     if (response.status === 200) {
-      console.log("PRICES");
-      console.log(response);
     await response.json().then(json=>{
-      console.log(json);
-      data=  JSON.parse(JSON.stringify(json));
+       data= JSON.parse(JSON.stringify(json));
       }).catch(err=>{
         console.log(err);
       });
     }
   }).catch(err => {
-      console.log(err)
       console.log(err);
     });
   return data;
