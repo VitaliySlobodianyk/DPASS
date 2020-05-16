@@ -17,7 +17,10 @@ import { connect } from 'react-redux';
 
 const HistoryCell = ({ order, navigation, addHistory }) => {
 
-  const { date, cards, approved } = order;
+  const { date, cards, approved, approvalSent } = order;
+  
+  console.log(order);
+
   const renderInfo =() =>{
     if(order?.info){
           return (
@@ -29,7 +32,6 @@ const HistoryCell = ({ order, navigation, addHistory }) => {
         }else{
           return null;
         }
-
   }
   
   const renderApproval = () => {
@@ -44,16 +46,40 @@ const HistoryCell = ({ order, navigation, addHistory }) => {
       const abilityToPay= checkAbilityToPay(date);
         
       if(abilityToPay === orderStatus.thisMonth || abilityToPay === orderStatus.nextMonth){
-        return ( <TouchableHighlight onPress={() => {
-          addHistory(pages.approval);
-          navigation.navigate(pages.approval, { order: order })
-        }}>
-    
-          <Text style={{
-            fontSize: 20,
-            color: 'red',
-          }}>Click to approve</Text>
-        </TouchableHighlight>);
+        if(approvalSent){
+          return (     
+         <View>
+            <Text style={{
+              fontSize: 16,
+              color: 'green',
+              paddingVertical:5
+            }}> Approval has been sent</Text>
+           
+            <TouchableHighlight onPress={() => {
+            addHistory(pages.approval);
+            navigation.navigate(pages.approval, { order: order })
+          }}>
+            <Text style={{
+              fontSize: 20,
+              color: 'violet',
+            }}>Resend Approval</Text>
+          </TouchableHighlight> 
+          </View> );
+
+        }else{
+          return ( <TouchableHighlight onPress={() => {
+            addHistory(pages.approval);
+            navigation.navigate(pages.approval, { order: order })
+          }}>
+      
+            <Text style={{
+              fontSize: 20,
+              color: 'red',
+            }}>Click to approve</Text>
+          </TouchableHighlight>);
+        }
+        
+        
       }else{
         return ( 
           <Text>Order Outdated, you can't approve it!</Text>
@@ -84,7 +110,10 @@ const HistoryCell = ({ order, navigation, addHistory }) => {
       >
       </FlatList>
       <Text >Order price: {calculatePriceOfPurchase(cards)} UAN</Text>
-      {renderApproval()}
+      
+        {renderApproval()}
+     
+     
     </View>
   );
 };

@@ -178,7 +178,7 @@ namespace TravelCardServer
             var credential = GetSheetCredentials();
             var service = GetService(credential);
 
-            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, "Лист7");
+            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(SpreadsheetId, "index");
             ValueRange response = request.Execute();
 
             var myRequest = new Request

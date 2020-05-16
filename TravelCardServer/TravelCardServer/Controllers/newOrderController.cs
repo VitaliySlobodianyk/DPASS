@@ -58,7 +58,7 @@ namespace TravelCardServer.Controllers
                 return Ok();
             }
 
-            return null;
+            return StatusCode(205);
 
         }
 

@@ -11,12 +11,15 @@ const CardLimit = ({onLimitChanged}) => {
 };
 
     return (
-        <View>
-            <Picker selectedValue={state.limit} onValueChange={updateLimit}>
+        <View style = {styles.layout}>
+           <View style={styles.pickerContainer}>
+            <Picker style= {styles.picker}  selectedValue={state.limit} onValueChange={updateLimit}>
             <Picker.Item label="46" value="46" />
             <Picker.Item label="62" value="62" />
             <Picker.Item label="Unlimited" value="unlim" />
             </Picker>
+            
+            </ View>
             <Text style={styles.text}>Selected limit: {state.limit}</Text>
         </View>
     )
@@ -27,6 +30,24 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
         alignSelf: 'center',
-        color: '#FFFFFF'
+        color: '#FFFFFF',
+        paddingLeft: 20
+    },
+    pickerContainer: {
+        width: "30%",
+        height: 50,
+        borderWidth: 3,
+        borderColor: "#9E9E9E",
+        alignContent: "center",
+        justifyContent: "center"
+    },
+    picker:{
+        
+    },
+     layout: {
+       flexDirection: "row",
+       paddingLeft: 20,
+       marginTop:10
+
     }
 })

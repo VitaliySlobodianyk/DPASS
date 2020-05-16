@@ -1,21 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\!Konkurs\\git\\DPASS\\TravelCardServer\\TravelCardServer\\TravelCardServer.csproj": {}
+    "D:\\WEB\\CardsMobile\\TravelCardServer\\TravelCardServer\\TravelCardServer.csproj": {}
   },
   "projects": {
-    "D:\\!Konkurs\\git\\DPASS\\TravelCardServer\\TravelCardServer\\TravelCardServer.csproj": {
+    "D:\\WEB\\CardsMobile\\TravelCardServer\\TravelCardServer\\TravelCardServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\!Konkurs\\git\\DPASS\\TravelCardServer\\TravelCardServer\\TravelCardServer.csproj",
+        "projectUniqueName": "D:\\WEB\\CardsMobile\\TravelCardServer\\TravelCardServer\\TravelCardServer.csproj",
         "projectName": "TravelCardServer",
-        "projectPath": "D:\\!Konkurs\\git\\DPASS\\TravelCardServer\\TravelCardServer\\TravelCardServer.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "D:\\!Konkurs\\git\\DPASS\\TravelCardServer\\TravelCardServer\\obj\\",
+        "projectPath": "D:\\WEB\\CardsMobile\\TravelCardServer\\TravelCardServer\\TravelCardServer.csproj",
+        "packagesPath": "C:\\Users\\Vitalii Slobodianyk\\.nuget\\packages\\",
+        "outputPath": "D:\\WEB\\CardsMobile\\TravelCardServer\\TravelCardServer\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Vitalii Slobodianyk\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -65,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
