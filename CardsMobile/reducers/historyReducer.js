@@ -1,11 +1,11 @@
 
 import {DELETE_HISTORY, ADD_HISTORY} from '../actions/types.js';
-import { iniciateState } from '../services'
+import { pageHistoryState } from '../services'
 import {uuid} from 'uuidv4'
 import {prices} from '../services'
 
 
-const historyReducer=  (state = iniciateState(), action) => {
+const historyReducer=  (state = pageHistoryState, action) => {
  switch (action.type) {
      case DELETE_HISTORY:
         { 

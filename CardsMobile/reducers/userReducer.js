@@ -1,9 +1,9 @@
-import { CHANGE_NAME, CHANGE_GROUP, CHANGE_PHONE, REFRESH, PUTBILLID, PUTDATE, PUTAMOUNT, CLEARAPPROVAL} from '../actions/types.js';
-import { iniciateState } from '../services'
+import { CHANGE_NAME, CHANGE_GROUP, CHANGE_PHONE, REFRESH, TIE_USER_INFO } from '../actions/types.js';
+import { userDataState} from '../services'
 
 
 
-const userReducer = (state = iniciateState(), action) => {
+const userReducer = (state = userDataState , action) => {
     switch (action.type) {
         case CHANGE_NAME:
             return {
@@ -30,39 +30,24 @@ const userReducer = (state = iniciateState(), action) => {
                 ...state
             }
          } break;
+        case TIE_USER_INFO: {
+            const newState = {...state};
+           
+           if( action.info?.name){
+               newState.name = action.info.name; 
+           }
+           if( action.info?.group){
+            newState.group = action.info.group; 
+           }
+           if( action.info?.phone){
+            newState.phone = action.info.phone; 
+           }
+            return  newState;
+         } break;
         
-         case PUTBILLID: {
-            return {
-                ...state,
-                billId: action.billId
-            }
-         } break;
-         case PUTDATE: {
-            return {
-                ...state,
-                date: action.date
-            }
-         } break;
-         case PUTAMOUNT: {
-            return {
-                ...state,
-                actualAmount: action.amount
-            }
-         } break;
-         case CLEARAPPROVAL: {
-            return {
-                ...state,
-                actualAmount: '',
-                date: '',
-                billId: ''
-            }
-         } break;
-
-
-        default:
+         default:
             break;
     }
-
     return state;
 } 
 export default userReducer;

@@ -7,13 +7,26 @@ import {
   sendData,
   readData,
   writeData,
+  keys,
   getKeyDate,
   calculatePriceOfPurchase,
 } from '../services';
 import {connect} from 'react-redux';
-import {deleteCard, putOrder, clearCart} from '../actions';
-
+import {deleteCard, putOrder, clearCart, uploadCards} from '../actions';
+let cardsUploaded = false;
 const CartPage = props => {
+  
+  const loadHistory = async () => {
+    const cards = await readData(keys.cards);
+    if (cards) {
+      props.uploadCards(cards);
+      cardsUploaded = true;
+    }
+  };
+  if (!cardsUploaded) {
+    loadHistory();
+  }
+
   const [sending, send] = useState(false);
 
   const validateCreds = () =>
@@ -23,20 +36,19 @@ const CartPage = props => {
       ? true
       : false;
 
-  const checkOrderAwailability = ( actualOrder) => {
+  const checkOrderAwailability = actualOrder => {
     const orders = [...props.cards.history];
-   
     const index = orders.findIndex(
       historyOrder =>
         actualOrder.date === historyOrder.date &&
         actualOrder.name.trim().toLowerCase() ===
-        historyOrder.name.trim().toLowerCase() &&
+          historyOrder.name.trim().toLowerCase() &&
         actualOrder.group.trim().toLowerCase() ===
-        historyOrder.group.trim().toLowerCase() &&
+          historyOrder.group.trim().toLowerCase() &&
         actualOrder.phone.trim().toLowerCase() ===
-        historyOrder.phone.trim().toLowerCase(),
+          historyOrder.phone.trim().toLowerCase(),
     );
-        return index === -1;
+    return index === -1;
   };
 
   const handleButton = () =>
@@ -48,10 +60,9 @@ const CartPage = props => {
 
   const getCards = async () => {
     send(true);
-   
+
     if (props.cards.cards.length > 0) {
-  
-        if (validateCreds()) {
+      if (validateCreds()) {
         const idOftransaction = uuid();
         const dateOfTransaction = getKeyDate();
 
@@ -65,41 +76,37 @@ const CartPage = props => {
           approved: false,
         };
 
-     if( checkOrderAwailability(order)){
-        const succes = await sendData(order);
+        if (checkOrderAwailability(order)) {
+          await writeData(props.user, keys.info);
+          console.log(order); //
+          const succes = await sendData(order);
 
-        if (succes) {
-          props.putOrder(order);
-          alert('Operation succesful');
-          props.clearCart();
+          if (succes) {
+            
+            order.approvalSent = false;
+            props.putOrder(order);
+           
+            alert('Operation succesful');
+            props.clearCart();
+          } else {
+            alert('Something went wrong! Try later');
+          }
         } else {
-          alert('Something went wrong! Try later');
-        }
-
-        await writeData({
-          id: props.user.id,
-          name: props.user.name,
-          group: props.user.group,
-          phone: props.user.phone,
-          history: props.cards.history,
-        });
-      }else{
-         alert(`Such order exists!
+          alert(`Such order exists!
          You can not have 2 same orders for 1 month!
          Please change credentials to make order!`);
-     }
-    }
-     else {
+        }
+      } else {
         alert('Wrong user data');
       }
     } else {
       alert('Your cart is empty!');
-    }       
+    }
     send(false);
   };
 
   return (
-    <View>
+    <View style={styles.mainView}>
       <View
         style={{
           height: '85%',
@@ -140,8 +147,9 @@ const CartPage = props => {
 
 const styles = StyleSheet.create({
   mainView: {
-    display: 'flex',
-  },
+    backgroundColor: "#B3E5FC",
+    height:"100%"
+   },
   nameField: {
     display: 'flex',
     flexDirection: 'row',
@@ -212,6 +220,7 @@ const mapDispatchToProps = dispatch => {
     deleteCard: id => dispatch(deleteCard(id)),
     putOrder: order => dispatch(putOrder(order)),
     clearCart: () => dispatch(clearCart()),
+    uploadCards: cards => dispatch(uploadCards(cards)),
   };
 };
 

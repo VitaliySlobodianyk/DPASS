@@ -52,7 +52,7 @@ const App = (props) => {
       <CustomHeader navigation={navigation} />,
     headerStyle: {
       backgroundColor: '#0288D1',
-      height: 120,
+      height: 130,
       flexDirection: 'row',
       justifyContent: 'center'
     },
@@ -192,4 +192,4 @@ const mapStateToProps= (state)=>{
     }
   }
 
-export default connect(mapStateToProps,mapDispatchToProps) (App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);

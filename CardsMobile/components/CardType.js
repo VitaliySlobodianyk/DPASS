@@ -12,13 +12,15 @@ const CardType = ({onTypeChanged}) => {
 
 
     return (
-        <View>
-            <Picker selectedValue={state.type} onValueChange={updateType}>
+        <View style= {styles.layout}>
+              <View style={styles.pickerContainer}>
+            <Picker style={styles.picker} selectedValue={state.type} onValueChange={updateType}>  
                 <Picker.Item label="Metro" value="metro" />
                 <Picker.Item label="Metro-Bus" value="metroBus" />
                 <Picker.Item label="Metro-Tram" value="metroTram" />
                 <Picker.Item label="Metro-Troleybus" value="metroTroley" />
             </Picker>
+            </View>
             <Text style={styles.text}>Selected type: {cardNames[state.type]}</Text>
         </View>
     )
@@ -29,6 +31,23 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
         alignSelf: 'center',
-        color: '#FFFFFF'
+        color: '#FFFFFF',
+        paddingLeft: 20
+    },
+    pickerContainer: {
+        width: "30%",
+        height: 50,
+        borderWidth: 3,
+        borderColor: "#9E9E9E",
+        alignContent: "center",
+        justifyContent: "center"
+    },
+    picker:{
+        
+    },
+     layout: {
+       flexDirection: "row",
+       paddingLeft: 20
+
     }
 })

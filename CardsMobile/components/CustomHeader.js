@@ -32,7 +32,9 @@ const CustomHeader = (props) => {
     return (
         <View style={styles.container} >
             <View style={styles.mainView}>
-                <Header title={"Pass"}/>
+                <Header style= {{
+                    fontWeight: "bold"
+                }} title={"Pass"}/>
             </View>
             <View style={styles.menu}>
                 <Text style={setMenuElementFocus(pages.main)}
