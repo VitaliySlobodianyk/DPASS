@@ -20,7 +20,7 @@ const CardLimit = ({onLimitChanged}) => {
             </Picker>
             
             </ View>
-            <Text style={styles.text}>Selected limit: {state.limit}</Text>
+            <Text style={styles.text}>Limit: {state.limit} rides</Text>
         </View>
     )
 

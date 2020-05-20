@@ -9,7 +9,7 @@ const pageHistoryState = {
 const userDataState = {
   name: '',
   group: '',
-  phone: '',
+  phone: '380',
 };
 
 const cardsConfigState = {

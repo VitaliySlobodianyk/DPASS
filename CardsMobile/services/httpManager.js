@@ -1,4 +1,4 @@
-const URL = 'http://192.168.0.103:8000';
+const URL = 'https://travelcardserver20200516041039.azurewebsites.net';
 
 export const sendData = async (order) => {
   let succes = true;

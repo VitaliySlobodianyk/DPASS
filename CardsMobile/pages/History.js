@@ -24,35 +24,33 @@ import {
   checkOrders,
   writeData,
   readData,
-  keys
+  keys,
 } from '../services';
 
-let  cardsUploaded = false;
+let cardsUploaded = false;
+let initialRefresh= false;
 const HistoryPage = props => {
   const history = props.cards.history;
   const datesToCheck = checkDate();
   const [refreshing, refresh] = useState({
     refreshing: false,
-    lastRefreshed: new Date().getTime() - 1000 * 60 * 5,
+    lastRefreshed: new Date().getTime() - 1000 * 60 ,
   });
 
-
   const loadHistory = async () => {
-    if(props.cards.history.length === 0){
+    if (props.cards.history.length === 0) {
       const cards = await readData(keys.cards);
       if (cards) {
         props.uploadCards(cards);
         cardsUploaded = true;
       }
-    }else{
+    } else {
       cardsUploaded = true;
     }
-    
   };
   if (!cardsUploaded) {
     loadHistory();
   }
-
 
   const ordersToCheck = history
     .filter(
@@ -90,12 +88,15 @@ const HistoryPage = props => {
     });
   };
 
+  if(!initialRefresh){
+    initialRefresh=true;
+    refreshStatuses();
+  }
+
   if (history.length > 0) {
     return (
       <View
-        style={{
-          height: '100%',
-        }}>
+        style={styles.mainView}>
         <FlatList
           data={history}
           onRefresh={handlerefresh}
@@ -115,15 +116,22 @@ const HistoryPage = props => {
     );
   } else {
     return (
-      <View>
-        <Text>No orders in history!</Text>
-        <Text>Make order first</Text>
+      <View style={styles.mainView}>
+        <View style={styles.nocardsLayout}>
+        <Text style={styles.textPrimary}>No orders in history!</Text>
+        <Text style={styles.textPrimary}>Make order first</Text>
+        </View>
       </View>
     );
   }
 };
 
 const styles = StyleSheet.create({
+  mainView: {
+   backgroundColor: "#B3E5FC",
+   height:"100%",
+   width: "100%"
+  },
   card: {
     backgroundColor: '#9E9E9E',
     display: 'flex',
@@ -137,6 +145,12 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 20,
     textAlign: 'center',
+  },
+  textPrimary: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    padding: 10,
   },
 });
 const mapStateToProps = state => {
@@ -162,7 +176,7 @@ const mapDispatchToProps = dispatch => {
     refresh: () => dispatch(refresh()),
     tieCheckedOrdersToHistory: checkedOrders =>
       dispatch(tieCheckedOrdersToHistory(checkedOrders)),
-     uploadCards: (cards)=> dispatch(uploadCards(cards)) 
+    uploadCards: cards => dispatch(uploadCards(cards)),
   };
 };
 

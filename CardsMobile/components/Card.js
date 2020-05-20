@@ -52,15 +52,14 @@ const Card = ({ type, limit, quantity, price, onDelete, displayDelete = true }) 
             Type: {cardNames[type]}
          </Text>
          <Text>
-            Limit:{limit}
+            Limit:  {limit}
          </Text>
          <Text>
-            Quantity:{quantity} Price:{price}
-         </Text>
+            Quantity:  {quantity} Price:  {price} UAH</Text>
          <Text style={{
             position: 'relative',
          }}>
-            Total: {quantity * price} UAN
+            Total: {quantity * price} UAH
   </Text>
 
 
@@ -72,14 +71,19 @@ const Card = ({ type, limit, quantity, price, onDelete, displayDelete = true }) 
 
 const styles = StyleSheet.create({
    card: {
-      height: 90,
       backgroundColor: '#9E9E9E',
       display: 'flex',
       justifyContent: "center",
       alignItems: 'center',
       color: "#FFFFFF",
-      height: 130,
-      position: 'relative'
+
+      position: 'relative',
+      borderBottomWidth: 2,
+      borderColor: "#BDBDBD",
+      paddingTop: 10,
+      paddingBottom: 5,
+      marginBottom: 10
+      
    },
    font: {
       color: "#FFFFFF",

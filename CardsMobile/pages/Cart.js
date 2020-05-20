@@ -32,7 +32,7 @@ const CartPage = props => {
   const validateCreds = () =>
     props.user.name.trim().length != 0 &&
     props.user.name.trim().length != 0 &&
-    props.user.phone.trim().length != 0
+    props.user.phone.trim().length >3 
       ? true
       : false;
 
@@ -139,7 +139,7 @@ const CartPage = props => {
         style={handleButton()}
         onPress={() => (sending ? console.log('sending') : getCards())}>
         <Text style={styles.buttonTextStyle}>Order your cards</Text>
-        <Text> {calculatePriceOfPurchase(props.cards.cards)} UAN</Text>
+        <Text> {calculatePriceOfPurchase(props.cards.cards)} UAH</Text>
       </TouchableOpacity>
     </View>
   );
@@ -187,7 +187,8 @@ const styles = StyleSheet.create({
   },
   buttonPrimary: {
     height: 60,
-    width: '100%',
+    marginTop: 3,
+    width: '98%',
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
@@ -195,6 +196,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     padding: '10%',
     display: 'flex',
+    alignSelf: "center",
     justifyContent: 'center',
     alignItems: 'center',
   },

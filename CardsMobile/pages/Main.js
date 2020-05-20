@@ -38,6 +38,7 @@ import {
   uploadPrices,
 } from '../actions';
 import {connect} from 'react-redux';
+import { FlatList } from 'react-native-gesture-handler';
 
 let infoGot = false;
 let pricesGot = false;
@@ -66,22 +67,22 @@ const MainPage = props => {
 
   const loadUserInfo = async () => {
     const info = await readData(keys.info);
-    if (info) {
+    if (info!=null) {
       props.tieUserInfo(info);
       infoGot = true;
     }
   };
+
   if (!infoGot) {
     loadUserInfo();
   }
-
   if (!pricesGot) {
     loadPrices();
   }
 
   return (
     <View style={styles.mainView}>
-      <ScrollView scrollEnabled={true}>
+      <ScrollView style ={ styles.scrollView} scrollEnabled={true}>
         <Text style={styles.textPrimary}> Order for {getKeyDate()}</Text>
         <TouchableHighlight>
           <View style={styles.nameField}>
@@ -125,7 +126,7 @@ const MainPage = props => {
             </Text>
             <TextInput
               placeholder="0 XX XXX XXXX"
-              defaultValue={props.user.phone}
+              value={props.user.phone}
               onChangeText={text => {
                 props.changePhone(text);
               }}
@@ -214,6 +215,7 @@ const MainPage = props => {
             />
           </View>
         </View>
+       
 
         <TouchableOpacity 
           style={styles.buttonPrimary}
@@ -222,6 +224,8 @@ const MainPage = props => {
               props.cardConfig.type,
               props.cardConfig.limit,
             );
+            await writeData(props.user, keys.info);
+           
             if (existingCardIndex != -1) {
               props.changeCard(existingCardIndex, {
                 quantity: props.cardConfig.quantity,
@@ -237,8 +241,6 @@ const MainPage = props => {
                   ],
               });
             }
-            console.log(props.user);
-            await writeData(props.user, keys.info);
             alert('Card was successfully added!');
           }}>
           <Text> Add Card to List</Text>
@@ -251,7 +253,7 @@ const MainPage = props => {
             UAH
           </Text>
         </TouchableOpacity>
-      </ScrollView>
+        </ScrollView>
     </View>
   );
 };
@@ -260,8 +262,14 @@ const styles = StyleSheet.create({
   
   mainView: {
    backgroundColor: "#B3E5FC",
-   minHeight: "100%"
+   height:"100%",
+   alignItems: "center",
+   justifyContent: "center"
   },
+  scrollView: {
+    height: "100%"
+  }
+  ,
   configText: {     
       fontSize: 20,
       width: "50%" 
@@ -322,7 +330,6 @@ const styles = StyleSheet.create({
   },
   buttonPrimary: {
     height: 60,
-    width: '100%',
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
@@ -333,8 +340,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    position: "relative",
-    marginTop: "5%"
+    marginBottom: 3,
+    alignSelf: "center",
+    width: "98%",
+    marginTop: "10%"
   },
   buttonTextStyle: {
     alignSelf: 'center',

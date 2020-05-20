@@ -32,9 +32,7 @@ const CustomHeader = (props) => {
     return (
         <View style={styles.container} >
             <View style={styles.mainView}>
-                <Header style= {{
-                    fontWeight: "bold"
-                }} title={"Pass"}/>
+                <Header  title={"Pass"}/>
             </View>
             <View style={styles.menu}>
                 <Text style={setMenuElementFocus(pages.main)}
@@ -95,14 +93,16 @@ const styles = StyleSheet.create({
     menuElement: {
         width: "30%",
         textAlign: 'center',
-        height: 20,
+        height: 40,
         fontFamily: 'Helvetica, sans-serif',
         fontWeight: 'bold',
-        color: '#fff'
+        color: '#fff',
+        fontSize: 17,
+        paddingTop:5
     },
     menuElementActive: {
         borderBottomColor: 'red',
-        borderBottomWidth: 3
+        borderBottomWidth: 4
     },
     visiblePage: {
         paddingHorizontal: 5,

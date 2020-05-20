@@ -111,9 +111,10 @@ const cardReducer = (state = cardsState, action) => {
     case APPROVALSENT:
       {
         let index = state.history.findIndex(
-          order => (order.id = action.orderId),
+          order => (order.id === action.orderId),
         );
         let history = [...state.history];
+    
         if (index != -1) {
           history[index].approvalSent = true;
         }

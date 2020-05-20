@@ -28,7 +28,8 @@ return (
 
 const styles = StyleSheet.create({
  header:{
-     height: 50,
+    marginTop:5,
+     height: 45,
      display: 'flex',
      justifyContent: "center",
      alignItems: 'center',

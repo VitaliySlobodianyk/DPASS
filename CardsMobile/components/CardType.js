@@ -21,7 +21,7 @@ const CardType = ({onTypeChanged}) => {
                 <Picker.Item label="Metro-Troleybus" value="metroTroley" />
             </Picker>
             </View>
-            <Text style={styles.text}>Selected type: {cardNames[state.type]}</Text>
+            <Text style={styles.text}>Type: {cardNames[state.type]}</Text>
         </View>
     )
 
