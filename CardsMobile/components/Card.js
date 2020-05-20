@@ -15,6 +15,7 @@ import {
    StatusBar,
    Image,
 } from 'react-native';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 import { cardNames } from '../services/CardNames'
 import Icon from 'react-native-vector-icons/Entypo';
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
    },
    font: {
       color: "#FFFFFF",
-      fontSize: 20,
+      fontSize: RFValue(20),
       textAlign: "center"
    }
 });

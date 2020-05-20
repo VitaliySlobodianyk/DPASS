@@ -21,6 +21,7 @@ import {
 } from '../services';
 import {CardType, CardLimit} from '../components';
 import Icon from 'react-native-vector-icons/Entypo';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 import {
   addCard,
@@ -156,7 +157,7 @@ const MainPage = props => {
           <Text
             style={{
               paddingTop: 20,
-              fontSize: 20,
+              fontSize: RFValue(19),
               paddingLeft: 20,
             }}>
             Enter quantity of cards:
@@ -243,7 +244,7 @@ const MainPage = props => {
             }
             alert('Card was successfully added!');
           }}>
-          <Text> Add Card to List</Text>
+          <Text style={styles.buttonTextStyle}> Add Card to List</Text>
           <Text>
             +
             {props.cardConfig.quantity *
@@ -263,15 +264,18 @@ const styles = StyleSheet.create({
   mainView: {
    backgroundColor: "#B3E5FC",
    height:"100%",
+   width: "100%",
    alignItems: "center",
    justifyContent: "center"
   },
   scrollView: {
-    height: "100%"
+    height: "100%",
+    width: "100%",
+    paddingHorizontal: 5
   }
   ,
   configText: {     
-      fontSize: 20,
+      fontSize: RFValue(18),
       width: "50%" 
   },
   controlIcon: {
@@ -287,7 +291,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
   },
   textPrimary: {
-    fontSize: 18,
+    fontSize: RFValue(19),
     fontWeight: 'bold',
     textAlign: 'center',
     paddingVertical: 15,
@@ -324,14 +328,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
   },
   visiblePage: {
-    paddingHorizontal: 5,
+    paddingHorizontal: 0,
     backgroundColor: '#B3E5FC',
     minHeight: '100%',
   },
   buttonPrimary: {
     height: 60,
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: RFValue(20),
     fontWeight: 'bold',
     borderColor: '#9E9E9E',
     color: '#FFFFFF',
@@ -342,11 +346,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 3,
     alignSelf: "center",
-    width: "98%",
+    width: "100%",
     marginTop: "10%"
   },
   buttonTextStyle: {
     alignSelf: 'center',
+    fontWeight: 'bold',
+    fontSize: RFValue(17)
   },
 });
 

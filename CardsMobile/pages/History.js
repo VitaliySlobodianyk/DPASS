@@ -26,6 +26,7 @@ import {
   readData,
   keys,
 } from '../services';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 let cardsUploaded = false;
 let initialRefresh= false;
@@ -52,6 +53,8 @@ const HistoryPage = props => {
     loadHistory();
   }
 
+ 
+
   const ordersToCheck = history
     .filter(
       order =>
@@ -60,7 +63,7 @@ const HistoryPage = props => {
     .map(({id, date, approved}) => ({id, date, approved}));
 
   const handlerefresh = () => {
-    if (new Date().getTime() - refreshing.lastRefreshed > 1000 * 60 * 5) {
+    if (new Date().getTime() - refreshing.lastRefreshed > 1000 * 60) {
       console.log('Sended update');
       refreshStatuses();
     } else {
@@ -143,11 +146,11 @@ const styles = StyleSheet.create({
   },
   font: {
     color: '#FFFFFF',
-    fontSize: 20,
+    fontSize: RFValue(20),
     textAlign: 'center',
   },
   textPrimary: {
-    fontSize: 18,
+    fontSize: RFValue(18),
     fontWeight: 'bold',
     textAlign: 'center',
     padding: 10,

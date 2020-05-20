@@ -12,6 +12,7 @@ import {getInfo, readData, writeData, keys, needUpdate} from '../services';
 import {uploadInfo, tieInfo} from '../actions';
 import Icon from 'react-native-vector-icons/Entypo';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 let infoGot = false;
 const Info = props => {
@@ -49,7 +50,7 @@ const Info = props => {
                  width: "95%",
                  textAlign: "left",
                  paddingLeft: 10,
-                 fontSize: 16
+                 fontSize: RFValue(16)
              }}> Студентська електронна картка дійсна при наявності у її власника студентського квитка денної форми навчання.</Text>
           </View>
          
@@ -113,12 +114,12 @@ const styles = StyleSheet.create({
   },
   contactText: {
     marginTop: 3,  
-    fontSize: 15,
+    fontSize: RFValue(15),
       width: "50%",
-      paddingLeft: 30
+      paddingLeft: 20
   },
   textPrimary: {
-    fontSize: 18,
+    fontSize: RFValue(18),
     fontWeight: 'bold',
     textAlign: 'center',
     paddingVertical: 15,

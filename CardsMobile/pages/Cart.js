@@ -13,6 +13,7 @@ import {
 } from '../services';
 import {connect} from 'react-redux';
 import {deleteCard, putOrder, clearCart, uploadCards} from '../actions';
+import { RFValue } from 'react-native-responsive-fontsize';
 let cardsUploaded = false;
 const CartPage = props => {
   
@@ -67,7 +68,7 @@ const CartPage = props => {
         const dateOfTransaction = getKeyDate();
 
         const order = {
-          date: dateOfTransaction,
+          date:  dateOfTransaction,
           id: idOftransaction,
           name: props.user.name,
           group: props.user.group,
@@ -104,6 +105,8 @@ const CartPage = props => {
     }
     send(false);
   };
+
+  
 
   return (
     <View style={styles.mainView}>
@@ -187,10 +190,10 @@ const styles = StyleSheet.create({
   },
   buttonPrimary: {
     height: 60,
-    marginTop: 3,
+    marginTop: 5,
     width: '98%',
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: RFValue(20),
     fontWeight: 'bold',
     borderColor: '#9E9E9E',
     color: '#FFFFFF',
@@ -208,6 +211,8 @@ const styles = StyleSheet.create({
   },
   buttonTextStyle: {
     alignSelf: 'center',
+    fontSize: RFValue(17),
+    fontWeight: 'bold'
   },
 });
 

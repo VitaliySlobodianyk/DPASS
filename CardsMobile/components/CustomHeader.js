@@ -14,6 +14,7 @@ import { pages } from '../services'
 import { Header } from './'
 import {connect} from 'react-redux'
 import {addHistory} from '../actions'
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize"
 
 const CustomHeader = (props) => {
     const navigation=  props.navigation;
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Helvetica, sans-serif',
         fontWeight: 'bold',
         color: '#fff',
-        fontSize: 17,
+        fontSize: RFValue(17),
         paddingTop:5
     },
     menuElementActive: {
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
         height: 60,
         width: "100%",
         textAlign: 'center',
-        fontSize: 20,
+        fontSize: RFValue(20),
         fontWeight: 'bold',
         borderColor: '#9E9E9E',
         color: "#FFFFFF",

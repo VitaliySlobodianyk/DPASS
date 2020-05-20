@@ -26,6 +26,7 @@ import {
 } from '../services';
 import Icon from 'react-native-vector-icons/Entypo';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const Approval = props => {
   const [sending, send] = useState(false);
@@ -90,7 +91,7 @@ const Approval = props => {
         <View>
           <Text
             style={{
-              fontSize: 19,
+              fontSize: RFValue(19),
               paddingLeft: 5,
               fontWeight: 'bold',
             }}>
@@ -98,7 +99,7 @@ const Approval = props => {
           </Text>
           <Text
             style={{
-              fontSize: 17,
+              fontSize: RFValue(17),
               paddingLeft: 15,
             }}>
             {' '}
@@ -106,7 +107,7 @@ const Approval = props => {
           </Text>
           <Text
             style={{
-              fontSize: 19,
+              fontSize: RFValue(19),
               paddingLeft: 5,
               fontWeight: 'bold',
               paddingTop: 10,
@@ -115,7 +116,7 @@ const Approval = props => {
           </Text>
           <Text
             style={{
-              fontSize: 19,
+              fontSize: RFValue(19),
               paddingLeft: 5,
               fontWeight: 'bold',
               paddingTop: 10,
@@ -132,7 +133,7 @@ const Approval = props => {
             <Icon name="credit-card" size={30} color="#0288D1"/>
             <Text
               style={{
-                fontSize: 18,
+                fontSize: RFValue(18),
                 marginLeft: 20,
               }}>
               0001 0002 0003 0004{' '}
@@ -149,10 +150,9 @@ const Approval = props => {
             <Icon name="warning"  color="red" size={30} />
             <Text
             style={{
-              fontSize: 19,
+              fontSize: RFValue(19),
               paddingLeft: 5,
               fontWeight: 'bold',
-              paddingTop: 10,
               width: "70%",
               marginLeft: 10
             }}>
@@ -161,7 +161,7 @@ const Approval = props => {
           </View>
          
         </View>
-        <View style={{marginTop: '5%'}}>
+        <View >
           <TextInput
             value={String(props.approval.billId)}
             style={styles.inputField}
@@ -249,20 +249,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   buttonPrimary: {
-    marginTop: '5%',
     alignSelf: 'center',
     padding: 20,
     width: '98%',
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: RFValue(20),
     fontWeight: 'bold',
     borderColor: '#9E9E9E',
     color: '#FFFFFF',
+    alignSelf: 'flex-end',
     backgroundColor: '#03A9F4',
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+    marginTop: "5%"
   },
   buttonActive: {
     backgroundColor: '#03A9F4',
@@ -272,7 +273,7 @@ const styles = StyleSheet.create({
   },
   buttonTextStyle: {
     color: '#FFF',
-    fontSize: 20,
+    fontSize: RFValue(20),
     fontWeight: 'bold',
     alignSelf: 'flex-start',
   },

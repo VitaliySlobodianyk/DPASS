@@ -14,6 +14,7 @@ import {
 import {addHistory} from '../actions';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/Entypo';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const HistoryCell = ({order, navigation, addHistory}) => {
   const {date, cards, approved, approvalSent, name} = order;
@@ -23,9 +24,13 @@ const HistoryCell = ({order, navigation, addHistory}) => {
   const renderInfo = () => {
     if (order?.info) {
       return (
-        <View>
-          <Text>Info:</Text>
-          <Text>{order.info}</Text>
+        <View style={{...styles.iconRow, paddingVertical: 7}}>
+          <Text style={{fontSize: RFValue(17), fontWeight: "bold"}}>Info:</Text>
+          <Text style={{
+            marginLeft: 10,
+            fontSize: RFValue(15), 
+            width: "85%"
+          }}>{order.info}</Text>
         </View>
       );
     } else {
@@ -40,7 +45,7 @@ const HistoryCell = ({order, navigation, addHistory}) => {
       <Icon name="check" size={25} color="green"></Icon>
       <Text
           style={{
-            fontSize: 20,
+            fontSize: RFValue(20),
             color: 'green',
             textAlign: 'center',
           }}>
@@ -60,7 +65,7 @@ const HistoryCell = ({order, navigation, addHistory}) => {
             <View>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: RFValue(16),
                   color: 'green',
                   paddingVertical: 5,
                   textAlign: 'center',
@@ -78,7 +83,7 @@ const HistoryCell = ({order, navigation, addHistory}) => {
                   <Icon name="cycle" color="red" size={25} />
                   <Text
                     style={{
-                      fontSize: 20,
+                      fontSize: RFValue(19),
                       color: 'red',
                       textAlign: 'center',
                       marginLeft: 5
@@ -99,7 +104,7 @@ const HistoryCell = ({order, navigation, addHistory}) => {
               }}>
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: RFValue(20),
                   color: 'red',
                 }}>
                 Click to approve
@@ -108,7 +113,19 @@ const HistoryCell = ({order, navigation, addHistory}) => {
           );
         }
       } else {
-        return <Text>Order Outdated, you can't approve it!</Text>;
+        return (
+          <View style={{...styles.iconRow, marginLeft: 0, }}> 
+          <Icon name="circle-with-cross" size={25} color="red"></Icon>
+          <Text
+              style={{
+                fontSize: RFValue(19),
+                color: 'red',
+                textAlign: 'center',
+              }}>
+              Order Outdated, you can't approve it!
+            </Text>
+            </View> 
+          );
       }
     }
   };
@@ -116,11 +133,11 @@ const HistoryCell = ({order, navigation, addHistory}) => {
   return (
     <View style={styles.card}>
       <View style={{...styles.iconRow}}>
-        <Icon name="user" size={25} />
+        <Icon name="user" size={25} color="#0288D1"/>
         <Text
           style={{
             ...styles.text,
-            fontSize: 17,
+            fontSize: RFValue(17),
             fontWeight: 'bold',
             paddingVertical: 5,
             paddingLeft:10
@@ -130,10 +147,24 @@ const HistoryCell = ({order, navigation, addHistory}) => {
       </View>
 
       <View style={{...styles.iconRow}}>
-        <Icon name="calendar" size={25} />
-        <Text style={styles.text}> {date}</Text>
+        <Icon name="calendar" size={25} color="#0288D1" />
+        <Text style={{
+            ...styles.text,
+            fontSize: RFValue(15),
+            paddingVertical: 5,
+            paddingLeft:10
+          }}> {date}</Text>
       </View>
-      <Text style={styles.text}>Date to pay: {payDate(date)}</Text>
+      <View style={{...styles.iconRow}}>
+          <Text style={{ fontWeight:"bold", fontSize:RFValue(16)}}>Date to pay: </Text>
+          <Text  style={{
+            ...styles.text,
+            fontSize: RFValue(15),
+            paddingVertical: 5,
+            paddingLeft:5
+          }}>{payDate(date)}</Text>
+      </View>
+      
       {renderInfo()}
       <View style={styles.cardList}>
         <FlatList
@@ -160,7 +191,7 @@ const HistoryCell = ({order, navigation, addHistory}) => {
         <Text
           style={{
             textAlign: 'center',
-            fontSize: 16,
+            fontSize: RFValue(16),
             fontWeight: 'bold',          
           }}>
           Order price: {calculatePriceOfPurchase(cards)} UAN
@@ -188,7 +219,7 @@ const styles = StyleSheet.create({
   },
   font: {
     color: '#FFFFFF',
-    fontSize: 20,
+    fontSize: RFValue(20),
     textAlign: 'center',
   },
   approveButton: {
