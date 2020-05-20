@@ -27,4 +27,5 @@ export const writeData = async (data, key) => {
     console.log(e);
   }
 };
-
+ 
+//AsyncStorage.clear()

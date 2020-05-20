@@ -14,6 +14,7 @@ import { pages } from '../services'
 import { Header } from './'
 import {connect} from 'react-redux'
 import {addHistory} from '../actions'
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize"
 
 const CustomHeader = (props) => {
     const navigation=  props.navigation;
@@ -32,9 +33,7 @@ const CustomHeader = (props) => {
     return (
         <View style={styles.container} >
             <View style={styles.mainView}>
-                <Header style= {{
-                    fontWeight: "bold"
-                }} title={"Pass"}/>
+                <Header  title={"Pass"}/>
             </View>
             <View style={styles.menu}>
                 <Text style={setMenuElementFocus(pages.main)}
@@ -95,14 +94,16 @@ const styles = StyleSheet.create({
     menuElement: {
         width: "30%",
         textAlign: 'center',
-        height: 20,
+        height: 40,
         fontFamily: 'Helvetica, sans-serif',
         fontWeight: 'bold',
-        color: '#fff'
+        color: '#fff',
+        fontSize: RFValue(17),
+        paddingTop:5
     },
     menuElementActive: {
         borderBottomColor: 'red',
-        borderBottomWidth: 3
+        borderBottomWidth: 4
     },
     visiblePage: {
         paddingHorizontal: 5,
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
         height: 60,
         width: "100%",
         textAlign: 'center',
-        fontSize: 20,
+        fontSize: RFValue(20),
         fontWeight: 'bold',
         borderColor: '#9E9E9E',
         color: "#FFFFFF",

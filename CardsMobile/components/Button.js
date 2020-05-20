@@ -15,7 +15,7 @@ import {
   StatusBar,
   Image,
 } from 'react-native';
-
+import { RFValue } from "react-native-responsive-fontsize";
 
 
 
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
  },
     font:{
      color: "#FFFFFF",
-     fontSize: 20,
-     textAlign: "center"
+     fontSize: RFValue(20) ,
+     textAlign: "center", fontWeight: "bold"
  },
  buttonPrimary: {
     height: 60,

@@ -1,6 +1,7 @@
 import React, { Component, useState } from 'react';
 import { View, Text, Picker, StyleSheet } from 'react-native';
 import {cardNames} from '../services/CardNames';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const CardLimit = ({onLimitChanged}) => {
     const [state, setState] = useState({ limit: '46' });
@@ -20,7 +21,7 @@ const CardLimit = ({onLimitChanged}) => {
             </Picker>
             
             </ View>
-            <Text style={styles.text}>Selected limit: {state.limit}</Text>
+            <Text style={styles.text}>Limit: {state.limit} rides</Text>
         </View>
     )
 
@@ -28,7 +29,7 @@ const CardLimit = ({onLimitChanged}) => {
 export default CardLimit;
 const styles = StyleSheet.create({
     text: {
-        fontSize: 20,
+        fontSize: RFValue(18),
         alignSelf: 'center',
         color: '#FFFFFF',
         paddingLeft: 20

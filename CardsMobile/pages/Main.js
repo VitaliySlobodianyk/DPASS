@@ -21,6 +21,7 @@ import {
 } from '../services';
 import {CardType, CardLimit} from '../components';
 import Icon from 'react-native-vector-icons/Entypo';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 import {
   addCard,
@@ -38,6 +39,7 @@ import {
   uploadPrices,
 } from '../actions';
 import {connect} from 'react-redux';
+import { FlatList } from 'react-native-gesture-handler';
 
 let infoGot = false;
 let pricesGot = false;
@@ -66,22 +68,22 @@ const MainPage = props => {
 
   const loadUserInfo = async () => {
     const info = await readData(keys.info);
-    if (info) {
+    if (info!=null) {
       props.tieUserInfo(info);
       infoGot = true;
     }
   };
+
   if (!infoGot) {
     loadUserInfo();
   }
-
   if (!pricesGot) {
     loadPrices();
   }
 
   return (
     <View style={styles.mainView}>
-      <ScrollView scrollEnabled={true}>
+      <ScrollView style ={ styles.scrollView} scrollEnabled={true}>
         <Text style={styles.textPrimary}> Order for {getKeyDate()}</Text>
         <TouchableHighlight>
           <View style={styles.nameField}>
@@ -125,7 +127,7 @@ const MainPage = props => {
             </Text>
             <TextInput
               placeholder="0 XX XXX XXXX"
-              defaultValue={props.user.phone}
+              value={props.user.phone}
               onChangeText={text => {
                 props.changePhone(text);
               }}
@@ -155,7 +157,7 @@ const MainPage = props => {
           <Text
             style={{
               paddingTop: 20,
-              fontSize: 20,
+              fontSize: RFValue(19),
               paddingLeft: 20,
             }}>
             Enter quantity of cards:
@@ -179,10 +181,11 @@ const MainPage = props => {
               placeholder="Enter Amount Of Cards"
               keyboardType={'numeric'}
               onChangeText={quant => {
-                if (quant >= 2 && quant <= 100) {
-                  props.changeQuantity(quant);
+                if (quant >0 && quant <= 100) {
+                  
+                  props.changeQuantity( parseInt(quant));
                 } else {
-                  props.changeQuantity(props.cardConfig.quantity);
+                  props.changeQuantity(1);
                 }
               }}
             />
@@ -214,6 +217,7 @@ const MainPage = props => {
             />
           </View>
         </View>
+       
 
         <TouchableOpacity 
           style={styles.buttonPrimary}
@@ -222,6 +226,8 @@ const MainPage = props => {
               props.cardConfig.type,
               props.cardConfig.limit,
             );
+            await writeData(props.user, keys.info);
+           
             if (existingCardIndex != -1) {
               props.changeCard(existingCardIndex, {
                 quantity: props.cardConfig.quantity,
@@ -237,11 +243,9 @@ const MainPage = props => {
                   ],
               });
             }
-            console.log(props.user);
-            await writeData(props.user, keys.info);
             alert('Card was successfully added!');
           }}>
-          <Text> Add Card to List</Text>
+          <Text style={styles.buttonTextStyle}> Add Card to List</Text>
           <Text>
             +
             {props.cardConfig.quantity *
@@ -251,7 +255,7 @@ const MainPage = props => {
             UAH
           </Text>
         </TouchableOpacity>
-      </ScrollView>
+        </ScrollView>
     </View>
   );
 };
@@ -260,10 +264,19 @@ const styles = StyleSheet.create({
   
   mainView: {
    backgroundColor: "#B3E5FC",
-   minHeight: "100%"
+   height:"100%",
+   width: "100%",
+   alignItems: "center",
+   justifyContent: "center"
   },
+  scrollView: {
+    height: "100%",
+    width: "100%",
+    paddingHorizontal: 5
+  }
+  ,
   configText: {     
-      fontSize: 20,
+      fontSize: RFValue(18),
       width: "50%" 
   },
   controlIcon: {
@@ -279,7 +292,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
   },
   textPrimary: {
-    fontSize: 18,
+    fontSize: RFValue(19),
     fontWeight: 'bold',
     textAlign: 'center',
     paddingVertical: 15,
@@ -316,15 +329,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
   },
   visiblePage: {
-    paddingHorizontal: 5,
+    paddingHorizontal: 0,
     backgroundColor: '#B3E5FC',
     minHeight: '100%',
   },
   buttonPrimary: {
     height: 60,
-    width: '100%',
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: RFValue(20),
     fontWeight: 'bold',
     borderColor: '#9E9E9E',
     color: '#FFFFFF',
@@ -333,11 +345,15 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    position: "relative",
-    marginTop: "5%"
+    marginBottom: 3,
+    alignSelf: "center",
+    width: "100%",
+    marginTop: "10%"
   },
   buttonTextStyle: {
     alignSelf: 'center',
+    fontWeight: 'bold',
+    fontSize: RFValue(17)
   },
 });
 

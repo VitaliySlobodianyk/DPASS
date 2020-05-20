@@ -18,8 +18,15 @@ import {
   clearApprovalData,
   approvalSent,
 } from '../actions';
-import {sendApproval, pages, writeData, calculatePriceOfPurchase} from '../services';
+import {
+  sendApproval,
+  pages,
+  writeData,
+  calculatePriceOfPurchase,
+} from '../services';
+import Icon from 'react-native-vector-icons/Entypo';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 
 const Approval = props => {
   const [sending, send] = useState(false);
@@ -79,44 +86,112 @@ const Approval = props => {
   };
 
   return (
-    <View
-      style={ styles.page }>
-      <ScrollView style={{flex: 1}}>
+    <View style={styles.page}>
+      <ScrollView
+        style={{
+          height: '100%',
+          width: '100%',
+          paddingTop: 15,
+        }}>
         <View>
-          <Text>Info</Text>
-        </View>
+          <Text
+            style={{
+              fontSize: RFValue(19),
+              paddingLeft: 5,
+              fontWeight: 'bold',
+            }}>
+            Cards:
+          </Text>
+          <Text
+            style={{
+              fontSize: RFValue(17),
+              paddingLeft: 15,
+            }}>
+            {' '}
+            {printOrders()}
+          </Text>
+          <Text
+            style={{
+              fontSize: RFValue(19),
+              paddingLeft: 5,
+              fontWeight: 'bold',
+              paddingTop: 10,
+            }}>
+            Cards for: {order.date}
+          </Text>
+          <Text
+            style={{
+              fontSize: RFValue(19),
+              paddingLeft: 5,
+              fontWeight: 'bold',
+              paddingTop: 10,
+            }}>
+            Full Price: {calculatePriceOfPurchase(order.cards)} UAH{' '}
+          </Text>
+          <View
+            style={{
+              paddingVertical: 10,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Icon name="credit-card" size={30} color="#0288D1" />
+            <Text
+              style={{
+                fontSize: RFValue(18),
+                marginLeft: 20,
+              }}>
+              0001 0002 0003 0004{' '}
+            </Text>
+          </View>
 
+          <View
+            style={{
+              paddingVertical: 10,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Icon name="warning" color="red" size={30} />
+            <Text
+              style={{
+                fontSize: RFValue(19),
+                paddingLeft: 5,
+                fontWeight: 'bold',
+                width: '70%',
+                marginLeft: 10,
+              }}>
+              Please, specify all order info in payment comment.
+            </Text>
+          </View>
+        </View>
         <View>
-          <Text>Cards: {printOrders()}</Text>
-          <Text>Cards for: {order.date}</Text>
-          <Text>Full Price: {calculatePriceOfPurchase(order.cards) } UAN </Text>
+          <TextInput
+            value={String(props.approval.billId)}
+            style={styles.inputField}
+            placeholder="Comment: bank transaction id... etc."
+            onChangeText={id => {
+              props.putBillId(id);
+            }}
+          />
+
+          <TextInput
+            value={String(props.approval.date)}
+            style={styles.inputField}
+            placeholder="Enter date of payment"
+            onChangeText={date => {
+              props.putDate(date);
+            }}
+          />
+          <TextInput
+            value={String(props.approval.actualAmount)}
+            style={styles.inputField}
+            placeholder="Enter actual amount of payment"
+            onChangeText={amount => {
+              props.putAmount(amount);
+            }}
+          />
         </View>
-
-        <TextInput
-          value={String(props.approval.billId)}
-          style={styles.inputField}
-          placeholder="Enter ID of bill"
-          onChangeText={id => {
-            props.putBillId(id);
-          }}
-        />
-
-        <TextInput
-          value={String(props.approval.date)}
-          style={styles.inputField}
-          placeholder="Enter date of payment"
-          onChangeText={date => {
-            props.putDate(date);
-          }}
-        />
-        <TextInput
-          value={String(props.approval.actualAmount)}
-          style={styles.inputField}
-          placeholder="Enter actual amount of payment"
-          onChangeText={amount => {
-            props.putAmount(amount);
-          }}
-        />
 
         <TouchableOpacity
           style={handleButton()}
@@ -128,12 +203,11 @@ const Approval = props => {
   );
 };
 
-
 const mapStateToProps = state => {
   return {
     cards: state.cards,
     history: state.history,
-    approval: state.approval
+    approval: state.approval,
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -155,11 +229,12 @@ export default connect(
 
 const styles = StyleSheet.create({
   inputField: {
-    width: '60%',
+    width: '70%',
     borderColor: '#9E9E9E',
     borderWidth: 3,
-    marginLeft: '5%',
+    alignSelf: 'center',
     paddingHorizontal: 10,
+    marginTop: '5%',
   },
   menuElement: {
     width: 100,
@@ -171,19 +246,27 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
   },
   page: {
-    paddingHorizontal: 5,
     backgroundColor: '#B3E5FC',
-    minHeight: '100%',
-  },
-  buttonPrimary: {
-    height: 50,
-    borderColor: '#9E9E9E',
-    borderWidth: 2,
-    color: '#FFFFFF',
+    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 5,
+  },
+  buttonPrimary: {
+    padding: 20,
+    width: '98%',
+    textAlign: 'center',
+    fontSize: RFValue(20),
+    fontWeight: 'bold',
+    borderColor: '#9E9E9E',
+    color: '#FFFFFF',
+    backgroundColor: '#03A9F4',
+    justifyContent: 'center',
     alignContent: 'center',
-    flexDirection: 'column'
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: '5%',
+    alignSelf: "center"
   },
   buttonActive: {
     backgroundColor: '#03A9F4',
@@ -193,7 +276,8 @@ const styles = StyleSheet.create({
   },
   buttonTextStyle: {
     color: '#FFF',
-    textAlignVertical: 'center',
-    fontSize: 20
+    fontSize: RFValue(20),
+    fontWeight: 'bold',
+    alignSelf: 'flex-start',
   },
 });

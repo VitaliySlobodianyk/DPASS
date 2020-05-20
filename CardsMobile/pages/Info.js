@@ -12,6 +12,7 @@ import {getInfo, readData, writeData, keys, needUpdate} from '../services';
 import {uploadInfo, tieInfo} from '../actions';
 import Icon from 'react-native-vector-icons/Entypo';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 let infoGot = false;
 const Info = props => {
@@ -38,34 +39,57 @@ const Info = props => {
   }
 
   return (
-    <View style={styles.page}>
+    <View style={styles.mainView}>
       <ScrollView style={{flex: 1}}>
-        <View>
-          <Text>Info</Text>
+        
+         <View>
+            <Text style={styles.textPrimary}>Правила використання</Text>
+          <View style={styles.listElement}>
+           <Icon name="controller-record" size={20} color="#0288D1" ></Icon>
+             <Text style={{
+                 width: "95%",
+                 textAlign: "left",
+                 paddingLeft: 10,
+                 fontSize: RFValue(16)
+             }}> Студентська електронна картка дійсна при наявності у її власника студентського квитка денної форми навчання.</Text>
+          </View>
+         
+          <Text> </Text>
+          <Text> </Text>
         </View>
 
         <View>
-          <Text>Правила використання</Text>
-          <Text> </Text>
-          <Text> </Text>
-          <Text> </Text>
-        </View>
+          <Text style={styles.textPrimary}>Зв'язатись з підтримкою</Text>
+          
+          <TouchableOpacity style={styles.listElement}>
+              <Icon style={{
+                
+              }} name="user" size={30} color="#0288D1"></Icon>
+               <Text style={styles.contactText}>
+                    {info.name}
+               </Text>
+          </TouchableOpacity>
 
-        <View>
-          <Text>Контактна інформація</Text>
-          <Text> Ім'я: {info.name}</Text>
-          <Text onPress={() => Linking.openURL(`tel:${info.phone}`)}>
-            {' '}
-            Телефон: {info.phone}{' '}
-          </Text>
+          <TouchableOpacity style={styles.listElement} onPress={() => Linking.openURL(`tel:${info.phone}`)}>
+              <Icon style={{
+                
+              }} name="phone" size={25} color="#0288D1"></Icon>
+               <Text style={styles.contactText} >
+                    {info.phone}
+               </Text>
+          </TouchableOpacity>
+          
+          
 
-          <TouchableOpacity onPress={() => Linking.openURL(info.telegram)}>
-            <Text style={{color: 'blue'}}>Telegram</Text>
-            <Icon
+          <TouchableOpacity style={styles.listElement} onPress={() => Linking.openURL(info.telegram)}>
+           <Icon
               name="paper-plane"
-              backgroundColor="transparent"
-              size={30}>
+             
+              size={30} color="#0288D1">
+                  
             </Icon>
+            <Text style={styles.contactText}>{info.telegram}</Text>
+            
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -74,8 +98,31 @@ const Info = props => {
 };
 
 const styles = StyleSheet.create({
-  page: {
-    height: '100%',
+    mainView: {
+        backgroundColor: "#B3E5FC",
+        height:"100%",
+        alignItems: "center",
+        justifyContent: "center"
+       },
+  listElement: {
+      flexDirection: "row",
+      alignContent: "center",
+      paddingHorizontal: 10,
+      paddingVertical: 15,
+      alignContent: "center",
+      justifyContent: "center"
+  },
+  contactText: {
+    marginTop: 3,  
+    fontSize: RFValue(15),
+      width: "50%",
+      paddingLeft: 20
+  },
+  textPrimary: {
+    fontSize: RFValue(18),
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingVertical: 15,
   },
 });
 const mapStateToProps = state => {

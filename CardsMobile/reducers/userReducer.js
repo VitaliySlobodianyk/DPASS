@@ -18,11 +18,27 @@ const userReducer = (state = userDataState , action) => {
             }
             break;
         case CHANGE_PHONE:
-           {  
-            return {
-                ...state,
-                phone: action.phone
-            }
+           { 
+            const {phone}= state;
+            const newPhone = action.phone;
+            console.log(newPhone.trim());
+            console.log( !isNaN(Number(newPhone.trim())));
+            if((newPhone.trim()).length>3 && (!isNaN(Number(newPhone.trim())))){
+                return {
+                    ...state,
+                    phone: newPhone
+                }
+            }else if( (newPhone.trim()).length>3 ){
+                return {
+                    ...state,
+                    phone
+                }
+            }else{
+                return {
+                    ...state,
+                    phone: '380'
+                }
+            }         
          }
             break;
          case REFRESH: {

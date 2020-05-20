@@ -9,6 +9,7 @@ import {
   StatusBar,
   Image,
 } from 'react-native';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 import Icon from 'react-native-vector-icons/Fontisto';
 
@@ -28,7 +29,8 @@ return (
 
 const styles = StyleSheet.create({
  header:{
-     height: 50,
+    marginTop:5,
+     height: 45,
      display: 'flex',
      justifyContent: "center",
      alignItems: 'center',
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
  },
     font:{
      color: "#FFFFFF",
-     fontSize: 25,
+     fontSize: RFValue(25),
      textAlign: "center",
      fontWeight: "bold",
       paddingLeft: 5

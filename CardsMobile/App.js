@@ -52,7 +52,7 @@ const App = (props) => {
       <CustomHeader navigation={navigation} />,
     headerStyle: {
       backgroundColor: '#0288D1',
-      height: 130,
+      height: 110,
       flexDirection: 'row',
       justifyContent: 'center'
     },
