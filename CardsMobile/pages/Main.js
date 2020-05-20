@@ -181,10 +181,11 @@ const MainPage = props => {
               placeholder="Enter Amount Of Cards"
               keyboardType={'numeric'}
               onChangeText={quant => {
-                if (quant >= 2 && quant <= 100) {
-                  props.changeQuantity(quant);
+                if (quant >0 && quant <= 100) {
+                  
+                  props.changeQuantity( parseInt(quant));
                 } else {
-                  props.changeQuantity(props.cardConfig.quantity);
+                  props.changeQuantity(1);
                 }
               }}
             />

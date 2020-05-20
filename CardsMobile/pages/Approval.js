@@ -26,7 +26,7 @@ import {
 } from '../services';
 import Icon from 'react-native-vector-icons/Entypo';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 
 const Approval = props => {
   const [sending, send] = useState(false);
@@ -87,7 +87,12 @@ const Approval = props => {
 
   return (
     <View style={styles.page}>
-      <ScrollView style={{height: '100%', width: '100%', paddingTop: 15}}>
+      <ScrollView
+        style={{
+          height: '100%',
+          width: '100%',
+          paddingTop: 15,
+        }}>
         <View>
           <Text
             style={{
@@ -121,16 +126,16 @@ const Approval = props => {
               fontWeight: 'bold',
               paddingTop: 10,
             }}>
-            Full Price: {calculatePriceOfPurchase(order.cards)} UAN{' '}
+            Full Price: {calculatePriceOfPurchase(order.cards)} UAH{' '}
           </Text>
           <View
             style={{
               paddingVertical: 10,
               flexDirection: 'row',
-              justifyContent: "center",
-              alignItems: "center"
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
-            <Icon name="credit-card" size={30} color="#0288D1"/>
+            <Icon name="credit-card" size={30} color="#0288D1" />
             <Text
               style={{
                 fontSize: RFValue(18),
@@ -139,33 +144,32 @@ const Approval = props => {
               0001 0002 0003 0004{' '}
             </Text>
           </View>
-        
+
           <View
             style={{
               paddingVertical: 10,
               flexDirection: 'row',
-              justifyContent: "center",
-              alignItems: "center"
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
-            <Icon name="warning"  color="red" size={30} />
+            <Icon name="warning" color="red" size={30} />
             <Text
-            style={{
-              fontSize: RFValue(19),
-              paddingLeft: 5,
-              fontWeight: 'bold',
-              width: "70%",
-              marginLeft: 10
-            }}>
-            Please, specify all order info in payment comment.
-          </Text>
+              style={{
+                fontSize: RFValue(19),
+                paddingLeft: 5,
+                fontWeight: 'bold',
+                width: '70%',
+                marginLeft: 10,
+              }}>
+              Please, specify all order info in payment comment.
+            </Text>
           </View>
-         
         </View>
-        <View >
+        <View>
           <TextInput
             value={String(props.approval.billId)}
             style={styles.inputField}
-            placeholder="Enter ID of bill"
+            placeholder="Comment: bank transaction id... etc."
             onChangeText={id => {
               props.putBillId(id);
             }}
@@ -249,7 +253,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   buttonPrimary: {
-    alignSelf: 'center',
     padding: 20,
     width: '98%',
     textAlign: 'center',
@@ -257,13 +260,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     borderColor: '#9E9E9E',
     color: '#FFFFFF',
-    alignSelf: 'flex-end',
     backgroundColor: '#03A9F4',
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: "5%"
+    marginTop: '5%',
+    alignSelf: "center"
   },
   buttonActive: {
     backgroundColor: '#03A9F4',
