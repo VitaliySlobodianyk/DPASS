@@ -37,6 +37,7 @@ import {
   tieUserInfo,
   tiePrices,
   uploadPrices,
+  changeId
 } from '../actions';
 import {connect} from 'react-redux';
 import { FlatList } from 'react-native-gesture-handler';
@@ -85,6 +86,23 @@ const MainPage = props => {
     <View style={styles.mainView}>
       <ScrollView style ={ styles.scrollView} scrollEnabled={true}>
         <Text style={styles.textPrimary}> Order for {getKeyDate()}</Text>
+        <TouchableHighlight>
+          <View style={styles.nameField}>
+            <Text
+              style={styles.configText}>
+              Enter studentID
+            </Text>
+            <TextInput
+              placeholder="KV0000000"
+              defaultValue={props.user.id}
+              onChangeText={id => {
+                props.changeId(id);
+              }}
+              style={styles.inputField}
+            />
+          </View>
+        </TouchableHighlight>
+        
         <TouchableHighlight>
           <View style={styles.nameField}>
             <Text
@@ -295,7 +313,7 @@ const styles = StyleSheet.create({
     fontSize: RFValue(19),
     fontWeight: 'bold',
     textAlign: 'center',
-    paddingVertical: 15,
+    paddingVertical: 7,
   },
   nameField: {
     display: 'flex',
@@ -348,7 +366,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     alignSelf: "center",
     width: "100%",
-    marginTop: "10%"
+    marginTop: "5%"
   },
   buttonTextStyle: {
     alignSelf: 'center',
@@ -380,6 +398,7 @@ const mapDispatchToProps = dispatch => {
     tieUserInfo: info => dispatch(tieUserInfo(info)),
     tiePrices: prices => dispatch(tiePrices(prices)),
     uploadPrices: prices => dispatch(uploadPrices(prices)),
+    changeId: id=> dispatch(changeId(id))
   };
 };
 

@@ -76,7 +76,8 @@ const App = (props) => {
 
       headerRight: () =>  <Icon.Button
       style={{
-        position:"relative",
+        marginBottom:3,
+        marginLeft: 1
       }}
       name="help-with-circle"
       backgroundColor="transparent"

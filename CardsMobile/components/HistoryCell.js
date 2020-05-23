@@ -25,11 +25,11 @@ const HistoryCell = ({order, navigation, addHistory}) => {
     if (order?.info) {
       return (
         <View style={{...styles.iconRow, paddingVertical: 7}}>
-          <Text style={{fontSize: RFValue(17), fontWeight: "bold"}}>Info:</Text>
+          <Text style={{fontSize: RFValue(17), fontWeight: "bold", alignSelf: "flex-start"}}>Info:</Text>
           <Text style={{
             marginLeft: 10,
             fontSize: RFValue(15), 
-            width: "85%"
+            width: "60%"
           }}>{order.info}</Text>
         </View>
       );
@@ -194,7 +194,7 @@ const HistoryCell = ({order, navigation, addHistory}) => {
             fontSize: RFValue(16),
             fontWeight: 'bold',          
           }}>
-          Order price: {calculatePriceOfPurchase(cards)} UAN
+          Order price: {calculatePriceOfPurchase(cards)} UAH
         </Text>
         {renderApproval()}
       </View>

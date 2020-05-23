@@ -17,6 +17,7 @@ export const DELETE_HISTORY= 'DELETE_HISTORY';
 
 //personal data
 export const CHANGE_NAME = 'CHANGE_NAME';
+export const CHANGE_ID = 'CHANGE_ID';
 export const CHANGE_GROUP = 'CHANGE_GROUP';
 export const CHANGE_PHONE = 'CHANGE_PHONE';
 export const UPDATE_USER_INFO = 'UPDATE_USER_INFO';

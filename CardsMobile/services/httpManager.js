@@ -1,7 +1,10 @@
 const URL = 'https://travelcardserver20200516041039.azurewebsites.net';
 
 export const sendData = async (order) => {
-  let succes = true;
+  let succes = {
+    status: true,
+    unique: true
+  };
 
   await fetch(`${URL}/newOrder`, {
     method: 'POST',
@@ -12,11 +15,15 @@ export const sendData = async (order) => {
     body: JSON.stringify(order)
   }).then(response => {
     if (response.status != 200) {
-      succes = false;
+      succes.status = false;
+    }
+    if (response.status === 205) {
+      succes.status= false;
+      succes.unique= false;
     }
   }).catch(err => {
     console.log(err)
-    succes = false;
+    succes.status = false;
   });
   return succes;
 }
@@ -31,12 +38,13 @@ export const sendApproval = async (approval) => {
     },
     body: JSON.stringify(approval)
   }).then(response =>{
+    
     if (response.status != 200) {
-      succes = false;
+    succes=false;
     }
   }).catch(err => {
     console.log(err)
-    succes = false;
+    succes=false;
   });
   return succes;
 }
