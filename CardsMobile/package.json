@@ -2,6 +2,7 @@
   "name": "Dpass",
   "version": "0.7.1",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "android": "npx react-native run-android",
     "ios": "react-native run-ios",

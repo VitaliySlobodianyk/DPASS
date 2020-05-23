@@ -31,7 +31,8 @@ const CartPage = props => {
   const [sending, send] = useState(false);
 
   const validateCreds = () =>
-    props.user.name.trim().length != 0 &&
+  props.user.id.trim().length != 0 &&  
+  props.user.name.trim().length != 0 &&
     props.user.name.trim().length != 0 &&
     props.user.phone.trim().length >3 
       ? true
@@ -44,6 +45,8 @@ const CartPage = props => {
         actualOrder.date === historyOrder.date &&
         actualOrder.name.trim().toLowerCase() ===
           historyOrder.name.trim().toLowerCase() &&
+          actualOrder.id.trim().toLowerCase() ===
+          historyOrder.id.trim().toLowerCase && 
         actualOrder.group.trim().toLowerCase() ===
           historyOrder.group.trim().toLowerCase() &&
         actualOrder.phone.trim().toLowerCase() ===
@@ -64,12 +67,11 @@ const CartPage = props => {
 
     if (props.cards.cards.length > 0) {
       if (validateCreds()) {
-        const idOftransaction = uuid();
         const dateOfTransaction = getKeyDate();
 
         const order = {
           date:  dateOfTransaction,
-          id: idOftransaction,
+          id: props.user.id,
           name: props.user.name,
           group: props.user.group,
           phone: props.user.phone,
@@ -79,17 +81,20 @@ const CartPage = props => {
 
         if (checkOrderAwailability(order)) {
           await writeData(props.user, keys.info);
-          console.log(order); //
+         
           const succes = await sendData(order);
-
-          if (succes) {
+          
+          if (succes.status && succes.unique) {
             
             order.approvalSent = false;
             props.putOrder(order);
            
             alert('Operation succesful');
             props.clearCart();
-          } else {
+          } else if(!succes.unique){
+            alert('Order with such student ID exists!');
+          }  
+          else {
             alert('Something went wrong! Try later');
           }
         } else {

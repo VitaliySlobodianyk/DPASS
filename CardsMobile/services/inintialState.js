@@ -7,6 +7,7 @@ const pageHistoryState = {
 };
 
 const userDataState = {
+  id:'',
   name: '',
   group: '',
   phone: '380',

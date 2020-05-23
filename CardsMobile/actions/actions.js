@@ -26,8 +26,8 @@ import {
   UPLOAD_CARDS,
   TIE_INFO,
   UPDATE_INFO_DATE,
-  UPLOAD_INFO
-
+  UPLOAD_INFO,
+  CHANGE_ID,
 } from './types';
 
 export const addCard = card => ({
@@ -55,7 +55,6 @@ export const tieCheckedOrdersToHistory = checkedOrders => ({
   checkedOrders,
 });
 
-
 export const clearCart = () => ({
   type: CLEAR_CART,
 });
@@ -68,12 +67,16 @@ export const deleteHistory = () => ({
   type: DELETE_HISTORY,
 });
 
-export const uploadCards =(cards) =>({
+export const uploadCards = cards => ({
   type: UPLOAD_CARDS,
-  cards
-})
+  cards,
+});
 
 
+export const changeId = id => ({
+  type: CHANGE_ID,
+  id,
+});
 export const changeName = name => ({
   type: CHANGE_NAME,
   name,
@@ -86,11 +89,12 @@ export const changePhone = phone => ({
   type: CHANGE_PHONE,
   phone,
 });
-export const tieUserInfo = (info) =>({
- type: TIE_USER_INFO,
- info 
-})
 
+
+export const tieUserInfo = info => ({
+  type: TIE_USER_INFO,
+  info,
+});
 
 export const changeType = type => ({
   type: CHANGE_TYPE,
@@ -126,42 +130,37 @@ export const clearApprovalData = () => ({
   type: CLEARAPPROVAL,
 });
 
-export const approvalSent = (orderId)=> ({
-    type: APPROVALSENT,
-    orderId
+export const approvalSent = orderId => ({
+  type: APPROVALSENT,
+  orderId,
 });
 
-
-
-
-
-export const updateDATE= (date) =>({
+export const updateDATE = date => ({
   type: UPDATE_PRICES_DATE,
-  date
-})
+  date,
+});
 
-export const tiePrices = (prices) =>({
+export const tiePrices = prices => ({
   type: TIE_PRICES,
-  prices
-})
+  prices,
+});
 
-export const uploadPrices = (prices) =>({
+export const uploadPrices = prices => ({
   type: UPLOAD_PRICES,
-  prices
-})
+  prices,
+});
 
-export const tieInfo = (info) =>({
+export const tieInfo = info => ({
   type: TIE_INFO,
-  info
-})
+  info,
+});
 
-export const uploadInfo = (info)=>({
- type: UPLOAD_INFO,
- info
-})
+export const uploadInfo = info => ({
+  type: UPLOAD_INFO,
+  info,
+});
 
-export const updateInfoDate = (date) =>({
+export const updateInfoDate = date => ({
   type: UPDATE_INFO_DATE,
-  date
-})
-
+  date,
+});
